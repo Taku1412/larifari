@@ -31,9 +31,10 @@ header{
     margin-top: 0;
     background-color: white;
     background-image: url(./img/colorheader.jpg);
+	background-size:     cover;       
     /* https://texpatnat.files.wordpress.com/2015/09/watercolour-blog-header-turquoise.jpg*/
     background-repeat: no-repeat;
-    background-position: 50% 0%;
+    background-position: 50% 50%;
     margin-bottom: 5px;
 }
 
