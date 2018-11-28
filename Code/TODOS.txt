@@ -1,0 +1,4 @@
+in register.php: 
+Wenn Fehler in der Eingabe und nochmal eingeben nötig 
+-> alte Eingabe nicht löschen (z.B. Username vergeben oder Passwörter stimmen nicht überein)
+
