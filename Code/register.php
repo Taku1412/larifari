@@ -1,17 +1,7 @@
 <?php 
-session_start();
-
-// SESSION-Variable: Connection to the database and username
-$_SESSION["username"] = "root";
-$_SESSION["password"] = "larifari";
-
-$server = "localhost";
-$db = "larifari";
-$_SESSION["source"] = "mysql:host=".$server.";dbname=".$db;
-
 // Immer wenn eine Verbindung aufgebaut werden soll:
 try {
-    $pdo = new PDO($_SESSION["source"],$_SESSION["username"],$_SESSION["password"]);
+    $pdo = new PDO($_SESSION["source"],$_SESSION["user"],$_SESSION["password"]);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
@@ -69,7 +59,7 @@ if(isset($_POST['register'])) {
         $result = $statement->execute(array('username' => $username, "lastname"=> $lastname, "firstname" => $firstname, 'password' => $passwordSave, "course" => $course, "description" => $description, "semester" => $semester));
         
         if($result) {        
-            echo "Registrierung erfolgreich. Logge dich ein um fortzufahren: <a href='login.php'>Login</a>";
+            echo "Registrierung erfolgreich. Logge dich ein um fortzufahren: <a href='main.php'>Login</a>";
             $showFormular = false;
         } else {
             echo 'Es ist ein Fehler aufgetreten, bitte versuche es erneut.<br>';

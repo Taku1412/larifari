@@ -1,17 +1,7 @@
 <?php 
-session_start();
-
-// SESSION-Variable: Connection to the database and username
-$_SESSION["username"] = "root";
-$_SESSION["password"] = "larifari";
-
-$server = "localhost";
-$db = "larifari";
-$_SESSION["source"] = "mysql:host=".$server.";dbname=".$db;
-
 // Immer wenn eine Verbindung aufgebaut werden soll:
 try {
-    $pdo = new PDO($_SESSION["source"],$_SESSION["username"],$_SESSION["password"]);
+    $pdo = new PDO($_SESSION["source"],$_SESSION["user"],$_SESSION["password"]);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
@@ -27,7 +17,7 @@ if(isset($_POST['login'])) {
 	
 	if ($username !== false && password_verify($password,$user['password'])) { 
         $_SESSION['username'] = $user['nickname'];
-        header("Location: start.html");
+        header("Location: main.php");
 		exit; 
     } else {
         $errorMessage = "E-Mail oder Passwort war ungültig<br>";
@@ -51,7 +41,7 @@ if(isset($errorMessage)) {
 }
 ?>
  
- <form action="login.php" method="post">
+ <form action="main.php" method="post">
 	  Benutzername:<br>
 	  <input type="text" name="username" required><br>
 	  Passwort:<br>
