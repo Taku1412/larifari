@@ -1,5 +1,5 @@
 <?php 
-// Immer wenn eine Verbindung aufgebaut werden soll:
+// Establish connection to the database
 try {
     $pdo = new PDO($_SESSION["source"],$_SESSION["user"],$_SESSION["password"]);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
