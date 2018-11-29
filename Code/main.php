@@ -81,7 +81,7 @@ if (isset ($_SESSION["username"])){
         // Lade jetzt entsprechende seite
         if (isset($_GET["page"])){
             if ($_GET["page"]=="favorites"){
-                include('favorites.html');	
+                include('favorites.php');	
             } else if ($_GET["page"]=="myoffers"){
                 include('myoffers.php');	
             } else if ($_GET["page"]=="offers"){

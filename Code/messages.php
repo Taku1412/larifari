@@ -59,7 +59,7 @@ try {
             
             echo "<form action='main.php?page=messages&contact=$contact' method='post'>";
             ?>
-                <input type="text" name="msg" required><input type="submit" name="sendMsg"> 
+                <input type="text" name="msg" required><input type="submit" name="sendMsg" value="Nachricht abschicken">
             </form>
             <?php
             
