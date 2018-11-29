@@ -116,13 +116,20 @@ if (isset ($_SESSION["username"])){
     }
     
 } else {
-    // call login .php
-    echo "not logged in";
+	if(isset($_GET["page"])){
+		if($_GET["page"]=="register"){
+			include("register.php");
+		}
+		else {
+			// call login .php
+    		include("login.php");	
+		}
+	}
+	else{
+		// call login .php
+    	include("login.php");
+	}
     
-    include("login.php");
-    // folgendes soll im login passieren:
-    
-    //$_SESSION["username"] = "lverscht";
 }
 ?>
         

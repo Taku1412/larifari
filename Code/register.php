@@ -68,7 +68,7 @@ if(isset($_POST['register'])) {
  
 if($showFormular) {
 ?>
- <form action="register.php" method="post">
+ <form action="main.php?page=register" method="post">
 	 Benutzername:<br>
 	  <input type="text" name="username" required><br>
 	 Vorname:<br>

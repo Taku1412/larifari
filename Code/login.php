@@ -20,7 +20,7 @@ if(isset($_POST['login'])) {
         header("Location: main.php");
 		exit; 
     } else {
-        $errorMessage = "E-Mail oder Passwort war ungültig<br>";
+        $errorMessage = "Benutzername oder Passwort ungültig<br>";
     }
     
 }
@@ -48,10 +48,9 @@ if(isset($errorMessage)) {
 	 
 	  <input type="submit" value="Anmelden" name = "login"><br><br>
 </form> 
-<form action="register.php">
-	Noch nicht Registriert? <br><br>
-    <input type="submit" value="Registrieren" />
-</form>
+
+Noch nicht Registriert? <br><br>
+<a href="main.php?page=register">Registrierung</a>
 	
 </body>
 </html>
