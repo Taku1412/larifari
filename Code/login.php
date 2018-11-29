@@ -30,7 +30,7 @@ if(isset($_POST['login'])) {
 <!DOCTYPE html> 
 <html> 
 <head>
-  <title>Login</title>    
+  <title>Login</title>  
 </head> 
 <body>
  

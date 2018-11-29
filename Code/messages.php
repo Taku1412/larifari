@@ -64,8 +64,25 @@ try {
             <?php
             
         } else {
-             // Write a new message: show all users
+            // Write a new message: show all users
+            // Todo nicht als dropdown sondern mit datalist
             ?>
+            <p> <form action="main.php?page=messages">
+                Neue Nachricht an:
+            <datalist id="user">
+            <?php
+            $sql = "SELECT nickname FROM member WHERE nickname NOT IN ('$_SESSION[username]')";
+            foreach ($pdo->query($sql) as $row) {
+                echo "<option value='$row[nickname]'/>";
+            } ?>
+            </datalist>
+
+            <input type="text" name="user" list="user" onchange="updateLink()">
+            <input type="submit" name="newMsg" value="Auswählen">
+    
+            </form>
+            </p>
+            
             <p>Neue Nachricht an: <select onchange="window.location=this.value">
                 <option value="main.php?page=messages">Bitte wählen</option>
             <?php
@@ -79,7 +96,11 @@ try {
             $sql = "SELECT receiver AS contact FROM messages WHERE sender = '$_SESSION[username]' UNION SELECT sender AS contact FROM messages WHERE receiver = '$_SESSION[username]'";
             $empty = true;
             foreach ($pdo->query($sql) as $row) {
-                echo "<p><a href='main.php?page=messages&contact=".$row["contact"]."'>".$row["contact"]."</a></p>";
+                // Show how many unread messages there are
+                $count = $pdo->prepare("SELECT sender FROM messages WHERE (receiver = '$_SESSION[username]' AND sender = '$row[contact]' AND opened = '0')");
+                $count->execute();
+                $num_msg = $count->rowCount();
+                echo "<p><a href='main.php?page=messages&contact=$row[contact]'>$row[contact] ($num_msg)</a></p>";
                 $empty = false;
             }        
             

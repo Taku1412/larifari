@@ -42,8 +42,8 @@ if (isset ($_SESSION["username"])){
     // user is logged in
     // check if logout was pressed
     if (isset($_GET["logout"])){
-        echo "logout";
         session_destroy();
+        header('Location: main.php');
     } else {
         // Hauptseite!
         // Header, aside und footer sind auf jeder Seite gleich:

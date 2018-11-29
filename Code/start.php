@@ -23,6 +23,9 @@ try {
         }
 
         ?>
+        <p>
+            "WebTech statt HighTech!" ~ Sophie Hallstedt
+        </p>
     </section>
     <section>
         <h2>Hier die neusten Anzeigen</h2>
