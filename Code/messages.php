@@ -17,13 +17,13 @@ try {
         
         if (isset($_GET["contact"])){
             if (isset($_POST["newMsg"])){
-                // Contact muss aus dem POST-Feld ausgelesen werden
+                // contact is taken from the formula (from the "Nachrichten" page)
                 $contact = $_POST["user"];
             } else {
                 $contact = $_GET["contact"];
             }
-            // todo control if the contact username is valid
             
+            // check if the contact username is valid
             $check = $pdo->prepare("SELECT * FROM member WHERE nickname='$contact'");
             $check->execute();
             $num_users = $check->rowCount();
@@ -46,9 +46,7 @@ try {
 
                 }
 
-                // Show messages with one specific user
-                // If the user does not exist: show that there are no messages
-
+                // Show chat with one specific user
                 $sql = "SELECT receiver,sender,message FROM messages WHERE (sender = '$_SESSION[username]' and receiver = '$contact') or (receiver = '$_SESSION[username]' and sender = '$contact') ORDER BY timestmp ASC";
                 $empty = true;
                 foreach ($pdo->query($sql) as $row) {
@@ -63,6 +61,7 @@ try {
                 }
 
                 if ($empty){
+                    // No messages were sent to or from this user
                     echo "Keine Nachrichten<br>";
                 }
 
@@ -71,10 +70,10 @@ try {
                     <input type="text" name="msg" required><input type="submit" name="sendMsg" value="Nachricht abschicken">
                 </form>
                 <?php
-                // Button zum Seite neu laden, um nach neuen Nachrichten zu schauen
+                // Reload the page to show new messages
                 echo "<div style='float:right'><a href='main.php?page=messages&contact=$contact'>Neu laden</a></div>";
             } else {
-                // Kein user mit dem gegebenen username in der Datenbank: Fehler
+                // There is no user with the specific username: error
                 echo "Es gibt keinen User mit dem Namen $contact";
             }
             
