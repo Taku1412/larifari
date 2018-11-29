@@ -1,0 +1,8 @@
+/* Design for the messages */
+.msg-sent {
+    background-color: aliceblue;
+}
+
+.msg-received {
+    background-color: bisque;
+}
