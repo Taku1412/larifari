@@ -25,16 +25,7 @@ if(isset($_POST['login'])) {
     
 }
 
-?>
-
-<!DOCTYPE html> 
-<html> 
-<head>
-  <title>Login</title>  
-</head> 
-<body>
  
-<?php 
 if(isset($errorMessage)) {
     echo $errorMessage;
 }
@@ -51,6 +42,3 @@ if(isset($errorMessage)) {
 
 Noch nicht Registriert? <br><br>
 <a href="main.php?page=register">Registrierung</a>
-	
-</body>
-</html>

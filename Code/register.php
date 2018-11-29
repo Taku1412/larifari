@@ -6,16 +6,7 @@ try {
 } catch (PDOException $e) {
     echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
 }
-?>
 
-<!DOCTYPE html> 
-<html> 
-<head>
-  <title>Registrierung</title>   
-</head> 
-<body>
- 
-<?php 
 if(isset($errorMessage)) {
     echo $errorMessage;
 }
@@ -89,6 +80,3 @@ if($showFormular) {
 <?php
 } //fi($showFormular)
 ?>
-</form> 
-</body>
-</html>
