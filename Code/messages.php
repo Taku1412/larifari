@@ -13,7 +13,8 @@ try {
         <h2>Nachrichten</h2>
         <?php
         // Search for existing chats and show them here:
-        
+        $sql = "SELECT * FROM `offer`";
+        foreach ($pdo->query($sql) as $row) {}
         ?>
         <p></p>
     </section>
