@@ -57,7 +57,7 @@ if(isset($_POST['profile'])) {
 		if(!password_verify($password,$user['password'])) {
         	//change user password
 			$passwordSave = password_hash($password, PASSWORD_DEFAULT);
-			$statement = $pdo->prepare("UPDATE member SET password =:password, lastName =:lastname, firstName=:firstname, nickname=:username, studyPath =:course, description:=description,startsem=:semester WHERE nickname = :username_old");
+			$statement = $pdo->prepare("UPDATE member SET password =:password, lastName =:lastname, firstName=:firstname, nickname=:username, studyPath =:course, description=:description, startsem=:semester WHERE nickname = :username_old");
         	$result = $statement->execute(array('username_old' => $user["nickname"],'username' => $username, "lastname"=> $lastname, "firstname" => $firstname, 'password' => $passwordSave, "course" => $course, "description" => $description, "semester" => $semester));
 			
 			if($result) {        
@@ -69,7 +69,7 @@ if(isset($_POST['profile'])) {
 			}
     	}
 		else{ //no new password 
-			$statement = $pdo->prepare("UPDATE member SET lastName =:lastname, firstName=:firstname, nickname=:username, studyPath =:course, description:=description,startsem=:semester WHERE nickname = :username_old");
+			$statement = $pdo->prepare("UPDATE member SET lastName =:lastname, firstName=:firstname, nickname=:username, studyPath =:course, description=:description,startsem=:semester WHERE nickname = :username_old");
         	$result = $statement->execute(array('username_old' => $user["nickname"],'username' => $username, "lastname"=> $lastname, "firstname" => $firstname, "course" => $course, "description" => $description, "semester" => $semester));
         
 			if($result) {        
