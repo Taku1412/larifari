@@ -16,12 +16,12 @@ try {
 <body>
 	
 <?php
-
+	
 if(isset($errorMessage)) {
     echo $errorMessage;
 }
  
-if(isset($_POST['register'])) {
+if(isset($_POST['profile'])) {
 	
 	//logged in user
 	$statement = $pdo->prepare("SELECT * FROM member WHERE nickname = :username");
@@ -30,14 +30,15 @@ if(isset($_POST['register'])) {
 	
 	//input data
     $error = false;
-    $username = $_POST['username'];
-	$firstname =  $_POST["firstname"];
-	$lastname = $_POST["lastname"];
-	$course = $_POST["course"];
-	$semester = $_POST["semester"];
-	$description = $_POST["description"];
-	$password = $_POST['password'];
+    $username = $_POST['change_username'];
+	$firstname =  $_POST["change_firstname"];
+	$lastname = $_POST["change_lastname"];
+	$course = $_POST["change_course"];
+	$semester = $_POST["change_semester"];
+	$description = $_POST["change_description"];
+	$password = $_POST['change_password'];
     $confirm_password = $_POST['confirm_password'];
+
 
   
     if(!password_verify($password_confirm,$user['password'])) {
@@ -45,13 +46,15 @@ if(isset($_POST['register'])) {
         $error = true;
     }
     
-    if(!$error) { 
-		//überprüfe ob username geändert wurde und wenn ja, ob dieser schon vergeben ist
+	//kein Fehler und Username soll aktualisiert werden
+    if(!$error && $username != $user["nickname"]) { 
+		
+		//überprüfe ob dieser schon vergeben ist
         $statement = $pdo->prepare("SELECT * FROM member WHERE nickname = :username"); 
         $result = $statement->execute(array('username' => $username));
-        $user = $statement->fetch();
+        $userTemp = $statement->fetch();
         
-        if($user !== false) {
+        if($userTemp !== false) {
             echo "Der Benutzername $username ist leider schon vergeben, bitte wähle einen anderen. <br>";
             $error = true;
         }    
@@ -96,7 +99,6 @@ if(isset($_POST['register'])) {
         <h2>Profilübersicht</h2>
 		<?php
         // Show all offers in a table
-        // Default: order by oID
 		
 		$statement = $pdo->prepare("SELECT * FROM member WHERE nickname = :username");
 		$result = $statement->execute(array('username' => $_SESSION["username"]));
@@ -144,11 +146,11 @@ if(isset($_POST['register'])) {
 		Beschreibung :
 		</td>
 		<td> 
-			<input type="text" name="change_description" value= <?php echo $user["description"];?> disabled> <!--enabled on click change_userdata-->
+			<textarea name = "change_description" rows="4" cols="50" disabled><?php echo $user["description"];?></textarea>
         </tr>
 		<tr>
 		<td>
-		Passwort :
+		Neues Passwort :
 		</td>
 		<td> 
 			<input type="password" name="change_password"  disabled> <!--enabled on click change_userdata-->
@@ -160,7 +162,7 @@ if(isset($_POST['register'])) {
 		
 		<!--confirm change by entering password and submitting-->
 		
-		<input type="password" name="password" id = "confirm_password" style="display: none" placeholder="Passwort erforderlich" required><br><br>
+		<input type="password" name="password" id = "confirm_password" style="display: none" placeholder="Passwort erforderlich..." required><br><br>
 
 		<input type="submit" id = "confirm_button" name = "confirm_change" style="display: none" value="Änderungen bestätigen" ><br><br>
 		</form> 
