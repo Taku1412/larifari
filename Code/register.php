@@ -18,7 +18,6 @@ try {
 <?php 
 if(isset($errorMessage)) {
     echo $errorMessage;
-	session_destroy();
 }
 ?>
  <?php

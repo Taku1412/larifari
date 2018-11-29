@@ -37,7 +37,6 @@ if(isset($_POST['login'])) {
 <?php 
 if(isset($errorMessage)) {
     echo $errorMessage;
-	session_destroy();
 }
 ?>
  
