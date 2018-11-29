@@ -30,7 +30,7 @@ if(isset($_POST['register'])) {
 	$course = $_POST["course"];
 	$semester = $_POST["semester"];
 	$description = $_POST["description"];
-	$password = $_POST['password'];
+    $password = $_POST['password'];
     $passwordVerify = $_POST['passwordVerify'];
 
   
@@ -79,7 +79,7 @@ if($showFormular) {
 	 Startsemester (optional): <br>
 	  <input type="text" name="semester" ><br>
 	 Beschreibung (optional): <br>
-	 <textarea name = "description" rows="4" cols="50" placeholder="Schreibe etwas über dich..."></textarea> <br>
+	 <textarea name="description" rows="4" cols="50" placeholder="Schreibe etwas über dich..."></textarea> <br>
 	 Passwort:<br>
 	  <input type="password" name="password" required><br>
 	 Passwort bestätigen:<br>
