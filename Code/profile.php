@@ -1,3 +1,4 @@
+<script src='js/profile.js'></script>
 <?php
 // Establish connection to database
 try {
@@ -6,16 +7,7 @@ try {
 } catch (PDOException $e) {
     echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
 }
-?>
-<!DOCTYPE html> 
-<html> 
-<head>
-<script src='js/profile.js'></script>
-  <title>Login</title>    
-</head> 
-<body>
-	
-<?php
+
 	
 if(isset($errorMessage)) {
     echo $errorMessage;
@@ -176,7 +168,3 @@ if(isset($_POST['profile'])) {
         
     </section>
 </article>
-	
-	
-</body>
-</html>
