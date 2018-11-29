@@ -16,58 +16,73 @@ try {
         // Design-Vorschlag: https://bootsnipp.com/snippets/featured/message-chat-box
         
         if (isset($_GET["contact"])){
+            if (isset($_POST["newMsg"])){
+                // Contact muss aus dem POST-Feld ausgelesen werden
+                $contact = $_POST["user"];
+            } else {
+                $contact = $_GET["contact"];
+            }
             // todo control if the contact username is valid
-            $contact = $_GET["contact"];
             
-            // todo button zum reloaden
+            $check = $pdo->prepare("SELECT * FROM member WHERE nickname='$contact'");
+            $check->execute();
+            $num_users = $check->rowCount();
             
-            // Messages are read -> set attribute auf 1
-            $statement = $pdo->prepare("UPDATE messages SET opened = '1' WHERE sender = :sender AND receiver = :receiver");
-            $result = $statement->execute(array("sender" => $contact, "receiver" => $_SESSION["username"]));
-        
-            if (isset($_POST["sendMsg"])){
-                // Save message to database
-                $statement = $pdo->prepare("INSERT INTO messages (sender, receiver, message, timestmp, opened) VALUES (:sender, :receiver, :message, :timestmp, :opened)");
-                
-                $result = $statement->execute(array("sender" => $_SESSION["username"], 
-                                        "receiver" => $contact, 
-                                        "message" => $_POST["msg"],
-                                       "timestmp" => time(),
-                                       "opened" => 0));
-                
-            }
-            
-            // Show messages with one specific user
-            // If the user does not exist: show that there are no messages
-            
-            $sql = "SELECT receiver,sender,message FROM messages WHERE (sender = '$_SESSION[username]' and receiver = '$contact') or (receiver = '$_SESSION[username]' and sender = '$contact') ORDER BY timestmp ASC";
-            $empty = true;
-            foreach ($pdo->query($sql) as $row) {
-                if ($row["sender"] == $contact){
-                    // The message was sent to the user
-                    echo "<div class='msg-received'>$row[sender]: $row[message]</div>";
-                } else {
-                    // The user is the sender -> show on right side
-                    echo "<div class='msg-sent'>$row[sender]: $row[message]</div>";
+            if ($num_users == 1){
+                // User exists -> show messages
+                // Messages are read -> set attribute auf 1
+                $statement = $pdo->prepare("UPDATE messages SET opened = '1' WHERE sender = :sender AND receiver = :receiver");
+                $result = $statement->execute(array("sender" => $contact, "receiver" => $_SESSION["username"]));
+
+                if (isset($_POST["sendMsg"])){
+                    // Save message to database
+                    $statement = $pdo->prepare("INSERT INTO messages (sender, receiver, message, timestmp, opened) VALUES (:sender, :receiver, :message, :timestmp, :opened)");
+
+                    $result = $statement->execute(array("sender" => $_SESSION["username"], 
+                                            "receiver" => $contact, 
+                                            "message" => $_POST["msg"],
+                                           "timestmp" => time(),
+                                           "opened" => 0));
+
                 }
-                $empty = false;
+
+                // Show messages with one specific user
+                // If the user does not exist: show that there are no messages
+
+                $sql = "SELECT receiver,sender,message FROM messages WHERE (sender = '$_SESSION[username]' and receiver = '$contact') or (receiver = '$_SESSION[username]' and sender = '$contact') ORDER BY timestmp ASC";
+                $empty = true;
+                foreach ($pdo->query($sql) as $row) {
+                    if ($row["sender"] == $contact){
+                        // The message was sent to the user
+                        echo "<div class='msg-received'>$row[sender]: $row[message]</div>";
+                    } else {
+                        // The user is the sender -> show on right side
+                        echo "<div class='msg-sent'>$row[sender]: $row[message]</div>";
+                    }
+                    $empty = false;
+                }
+
+                if ($empty){
+                    echo "Keine Nachrichten<br>";
+                }
+
+                echo "<form action='main.php?page=messages&contact=$contact' method='post'>";
+                ?>
+                    <input type="text" name="msg" required><input type="submit" name="sendMsg" value="Nachricht abschicken">
+                </form>
+                <?php
+                // Button zum Seite neu laden, um nach neuen Nachrichten zu schauen
+                echo "<div style='float:right'><a href='main.php?page=messages&contact=$contact'>Neu laden</a></div>";
+            } else {
+                // Kein user mit dem gegebenen username in der Datenbank: Fehler
+                echo "Es gibt keinen User mit dem Namen $contact";
             }
             
-            if ($empty){
-                echo "Keine Nachrichten<br>";
-            }
-            
-            echo "<form action='main.php?page=messages&contact=$contact' method='post'>";
-            ?>
-                <input type="text" name="msg" required><input type="submit" name="sendMsg" value="Nachricht abschicken">
-            </form>
-            <?php
             
         } else {
             // Write a new message: show all users
-            // Todo nicht als dropdown sondern mit datalist
             ?>
-            <p> <form action="main.php?page=messages">
+            <p> <form action="main.php?page=messages&contact=" method="post">
                 Neue Nachricht an:
             <datalist id="user">
             <?php
@@ -82,16 +97,8 @@ try {
     
             </form>
             </p>
-            
-            <p>Neue Nachricht an: <select onchange="window.location=this.value">
-                <option value="main.php?page=messages">Bitte wählen</option>
+            <h3></h3>
             <?php
-            $sql = "SELECT nickname FROM member WHERE nickname NOT IN ('$_SESSION[username]')";
-            foreach ($pdo->query($sql) as $row) {
-                echo "<option value='main.php?page=messages&contact=$row[nickname]'>$row[nickname]</option>";
-            }        
-            echo "</select></p>";
-            
             // Search for existing chats and show them here:
             $sql = "SELECT receiver AS contact FROM messages WHERE sender = '$_SESSION[username]' UNION SELECT sender AS contact FROM messages WHERE receiver = '$_SESSION[username]'";
             $empty = true;
