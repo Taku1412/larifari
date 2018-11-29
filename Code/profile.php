@@ -7,53 +7,174 @@ try {
     echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
 }
 ?>
+<!DOCTYPE html> 
+<html> 
+<head>
+<script src='js/profile.js'></script>
+  <title>Login</title>    
+</head> 
+<body>
+	
+<?php
 
+if(isset($errorMessage)) {
+    echo $errorMessage;
+}
+ 
+if(isset($_POST['register'])) {
+	
+	//logged in user
+	$statement = $pdo->prepare("SELECT * FROM member WHERE nickname = :username");
+    $result = $statement->execute(array('username' => $_SESSION["username"]));
+    $user = $statement->fetch();
+	
+	//input data
+    $error = false;
+    $username = $_POST['username'];
+	$firstname =  $_POST["firstname"];
+	$lastname = $_POST["lastname"];
+	$course = $_POST["course"];
+	$semester = $_POST["semester"];
+	$description = $_POST["description"];
+	$password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+
+  
+    if(!password_verify($password_confirm,$user['password'])) {
+        echo "falsches Passwort.<br>";
+        $error = true;
+    }
+    
+    if(!$error) { 
+		//überprüfe ob username geändert wurde und wenn ja, ob dieser schon vergeben ist
+        $statement = $pdo->prepare("SELECT * FROM member WHERE nickname = :username"); 
+        $result = $statement->execute(array('username' => $username));
+        $user = $statement->fetch();
+        
+        if($user !== false) {
+            echo "Der Benutzername $username ist leider schon vergeben, bitte wähle einen anderen. <br>";
+            $error = true;
+        }    
+    }
+    
+    if(!$error) { 
+		//if new password in input change password
+		if(!password_verify($password,$user['password'])) {
+        	//change user password
+			$passwordSave = password_hash($password, PASSWORD_DEFAULT);
+			$statement = $pdo->prepare("UPDATE member SET password =:password, lastName =:lastname, firstName=:firstname, nickname=:username, studyPath =:course, description:=description,startsem=:semester WHERE nickname = :username_old");
+        	$result = $statement->execute(array('username_old' => $user["nickname"],'username' => $username, "lastname"=> $lastname, "firstname" => $firstname, 'password' => $passwordSave, "course" => $course, "description" => $description, "semester" => $semester));
+			
+			if($result) {        
+				echo "Passwort- und andere Änderungen erfolgreich. ";
+					$_SESSION["username"]=$user["nickname"];
+
+			} else {
+				echo 'Es ist ein Fehler aufgetreten, bitte versuche es erneut.<br>';
+			}
+    	}
+		else{ //no new password 
+			$statement = $pdo->prepare("UPDATE member SET lastName =:lastname, firstName=:firstname, nickname=:username, studyPath =:course, description:=description,startsem=:semester WHERE nickname = :username_old");
+        	$result = $statement->execute(array('username_old' => $user["nickname"],'username' => $username, "lastname"=> $lastname, "firstname" => $firstname, "course" => $course, "description" => $description, "semester" => $semester));
+        
+			if($result) {        
+				echo "Änderungen erfolgreich. ";
+					$_SESSION["username"]=$user["nickname"];
+
+			} else {
+				echo 'Es ist ein Fehler aufgetreten, bitte versuche es erneut.<br>';
+			}
+		}
+    
+        
+    } 
+}
+?>
+	
 <article class="col-xs-9">
     <section>
         <h2>Profilübersicht</h2>
-        <p>
-            Name, Studiengang etc. Auch für fremde Accounts?
-        </p>
-        <p>
-        Thrice the brinded cat hath mew'd.
-        Thrice and once the hedge-pig whine’d.
-        Harpier cries 'Tis time, 'tis time.
-        Round about the cauldron go,
-        In the poison'd entrails throw.
-        Toad that under cold stone
-        Days and nights has thirty-one
-        Swelter'd venom, sleeping got,
-        Boil thou first i' the charmed pot.
-        Double, double toil and trouble,
-        Fire burn and cauldron bubble.
-        Fillet of a fenny snake,
-        In the cauldron boil and bake,
-        Eye of newt and toe of frog,
-        Wool of bat and tongue of dog.
-        Adder's fork and blind-worm's sting,
-        Lizard's leg and owlet's wing.
-        For a charm of powerful trouble,
-        Like a hell-broth boil and bubble.
-        Double, double toil and trouble,
-        Fire burn and cauldron bubble.
-        Scale of dragon, tooth of wolf,
-        Witches' mummy, maw and gulf
-        Of the ravin'd salt-sea shark,
-        Root of hemlock digg'd in dark,
-        Liver of blaspheming Jew,
-        Gall of goat, and slips of yew,
-        Silver'd in the moon's eclipse,
-        Nose of Turk and Tartar's lips.
-        Finger of birth-strangl’d babe,
-        Ditch-deliver'd by a drab.
-        Make the gruel thick and slab.
-        Add thereto a tiger's chaudron,
-        For ingredients for our cauldron.
-        Double, double toil and trouble,
-        Fire burn and cauldron bubble.
-        By the pricking of my thumbs,
-        Something wicked this way comes.
-        Open, locks, Whoever knocks! 
-        </p>
+		<?php
+        // Show all offers in a table
+        // Default: order by oID
+		
+		$statement = $pdo->prepare("SELECT * FROM member WHERE nickname = :username");
+		$result = $statement->execute(array('username' => $_SESSION["username"]));
+    	$user = $statement->fetch();
+		?>
+		<form action="main.php?page=profile" method="post" name="change_form">
+		<table>
+		<tr>
+		<td>
+		Nickname :
+		</td>
+		<td> 
+			<input type="text" name="change_username" value= <?php echo $user["nickname"];?> disabled> <!--enabled on click change_userdata-->
+        </tr>
+		<tr>
+		<td>
+		Vorname :
+		</td>
+		<td> 
+			<input type="text" name="change_firstname" value= <?php echo $user["firstName"];?> disabled> <!--enabled on click change_userdata-->
+        </tr>
+		<tr>
+		<td>
+		Nachname :
+		</td>
+		<td> 
+			<input type="text" name="change_lastname" value= <?php echo $user["lastName"];?> disabled> <!--enabled on click change_userdata-->
+        </tr>
+		<tr>
+		<td>
+		Studiengang :
+		</td>
+		<td> 
+			<input type="text" name="change_course" value= <?php echo $user["studyPath"];?> disabled> <!--enabled on click change_userdata-->
+        </tr>
+		<tr>
+		<td>
+		Startsemester :
+		</td>
+		<td> 
+			<input type="text" name="change_semester" value= <?php echo $user["startsem"];?> disabled> <!--enabled on click change_userdata-->
+        </tr>
+		<tr>
+		<td>
+		Beschreibung :
+		</td>
+		<td> 
+			<input type="text" name="change_description" value= <?php echo $user["description"];?> disabled> <!--enabled on click change_userdata-->
+        </tr>
+		<tr>
+		<td>
+		Passwort :
+		</td>
+		<td> 
+			<input type="password" name="change_password"  disabled> <!--enabled on click change_userdata-->
+        </tr>
+			
+		</table>
+		
+		<button type="button" id =change_userdata >bearbeiten</button><br><br>
+		
+		<!--confirm change by entering password and submitting-->
+		
+		<input type="password" name="password" id = "confirm_password" style="display: none" placeholder="Passwort erforderlich" required><br><br>
+
+		<input type="submit" id = "confirm_button" name = "confirm_change" style="display: none" value="Änderungen bestätigen" ><br><br>
+		</form> 
+		
+		<?php
+		if($user["admin"]==0)	{
+			echo "<br>Du bist ein Admin, juchuh! <br>";
+		}
+       
+        ?>
+        
     </section>
 </article>
+	
+	
+</body>
+</html>

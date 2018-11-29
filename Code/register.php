@@ -19,8 +19,7 @@ try {
 if(isset($errorMessage)) {
     echo $errorMessage;
 }
-?>
- <?php
+	
 $showFormular = true;
  
 if(isset($_POST['register'])) {
