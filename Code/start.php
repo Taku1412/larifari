@@ -17,7 +17,7 @@ try {
         // Limit the number of entries: show only the newest
         $limit = 3; 
         
-        $sql = "SELECT * FROM `news` ORDER BY `news`.`timestmp` DESC LIMIT $limit";
+        $sql = "SELECT content FROM news ORDER BY timestmp DESC LIMIT $limit";
         foreach ($pdo->query($sql) as $row) {
            echo "<p>".$row['content']."</p>";
         }

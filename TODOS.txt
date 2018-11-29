@@ -4,4 +4,5 @@ register.php:
 
 GENERELLES CODE-DESIGN:
 	welche session-variablen genau? also zB admin bool speichern, wenn das öfter verwendet werden soll
+	admin==1 heißt der user ist ein admin oder nicht?
 
