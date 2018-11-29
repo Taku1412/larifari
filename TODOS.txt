@@ -1,0 +1,7 @@
+register.php: 
+	Wenn Fehler in der Eingabe und nochmal eingeben nötig 
+	-> alte Eingabe nicht löschen (z.B. Username vergeben oder Passwörter stimmen nicht überein)
+
+GENERELLES CODE-DESIGN:
+	welche session-variablen genau? also zB admin bool speichern, wenn das öfter verwendet werden soll
+
