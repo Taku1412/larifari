@@ -26,7 +26,7 @@ if(isset($_POST['register'])) {
 
   
     if($password != $passwordVerify) {
-        echo "Die Passwörter stimmen nicht überein.<br>";
+        $errorMessage = "Die Passwörter stimmen nicht überein.<br>";
         $error = true;
     }
     
@@ -36,7 +36,7 @@ if(isset($_POST['register'])) {
         $user = $statement->fetch();
         
         if($user !== false) {
-            echo "Der Benutzername $username ist leider schon vergeben, bitte wähle einen anderen. <br>";
+            $errorMessage = "Der Benutzername $username ist leider schon vergeben, bitte wähle einen anderen. <br>";
             $error = true;
         }    
     }
@@ -48,10 +48,10 @@ if(isset($_POST['register'])) {
         $result = $statement->execute(array('username' => $username, "lastname"=> $lastname, "firstname" => $firstname, 'password' => $passwordSave, "course" => $course, "description" => $description, "semester" => $semester));
         
         if($result) {        
-            echo "Registrierung erfolgreich. Logge dich ein um fortzufahren: <a href='main.php'>Login</a>";
+            $errorMessage = "Registrierung erfolgreich. Logge dich ein um fortzufahren: <a href='main.php'>Login</a>";
             $showFormular = false;
         } else {
-            echo 'Es ist ein Fehler aufgetreten, bitte versuche es erneut.<br>';
+            $errorMessage ='Es ist ein Fehler aufgetreten, bitte versuche es erneut.<br>';
         }
     } 
 }

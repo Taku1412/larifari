@@ -9,9 +9,7 @@ try {
 }
 
 	
-if(isset($errorMessage)) {
-    echo $errorMessage;
-}
+
  
 if(isset($_POST['confirm_change'])) {
 	
@@ -22,20 +20,22 @@ if(isset($_POST['confirm_change'])) {
 	
 	//input data
     $error = false;
+	$Message = false;
     $username = $_POST['change_username'];
 	$firstname =  $_POST["change_firstname"];
 	$lastname = $_POST["change_lastname"];
 	$course = $_POST["change_course"];
 	$semester = $_POST["change_semester"];
 	$description = $_POST["change_description"];
-	$password = $_POST['change_password'];
-    $confirm_password = $_POST['password'];
+	$password = $_POST['change_password']; //new password
+    $confirm_password = $_POST['confirm_password']; //old password to verify change
 
 
   
     if(!password_verify($confirm_password,$user['password'])) {
-        echo "falsches Passwort.<br>";
-        $error = true;
+        //echo "falsches Passwort.<br>";
+		$error = true;
+        $Message = "falsches Passwort.<br>";
     }
     
 	//kein Fehler und Username soll aktualisiert werden
@@ -47,26 +47,26 @@ if(isset($_POST['confirm_change'])) {
         $userTemp = $statement->fetch();
         
         if($userTemp !== false) {
-            echo "Der Benutzername $username ist leider schon vergeben, bitte wähle einen anderen. <br>";
+            $Message =  "Der Benutzername $username ist leider schon vergeben, bitte wähle einen anderen. <br>";
             $error = true;
         }    
     }
     
     if(!$error) { 
-        echo "kein fgejler";
 		//if new password in input change password
-		if(!password_verify($password,$user['password'])) {
+		if((!password_verify($password,$user['password'])) && ($password != "") && ($password != null)) {
         	//change user password
 			$passwordSave = password_hash($password, PASSWORD_DEFAULT);
 			$statement = $pdo->prepare("UPDATE member SET password =:password, lastName =:lastname, firstName=:firstname, nickname=:username, studyPath =:course, description=:description, startsem=:semester WHERE nickname = :username_old");
         	$result = $statement->execute(array('username_old' => $user["nickname"],'username' => $username, "lastname"=> $lastname, "firstname" => $firstname, 'password' => $passwordSave, "course" => $course, "description" => $description, "semester" => $semester));
 			
 			if($result) {        
-				echo "Passwort- und andere Änderungen erfolgreich. ";
-					$_SESSION["username"]=$user["nickname"];
+				$Message = "Passwort- und andere Änderungen erfolgreich. ";
+				$_SESSION["username"]=$user["nickname"];
 
 			} else {
-				echo 'Es ist ein Fehler aufgetreten, bitte versuche es erneut.<br>';
+				$Message = 'Es ist ein Fehler aufgetreten, bitte versuche es erneut.<br>';
+				$error = true;
 			}
     	}
 		else{ //no new password 
@@ -74,24 +74,31 @@ if(isset($_POST['confirm_change'])) {
         	$result = $statement->execute(array('username_old' => $user["nickname"],'username' => $username, "lastname"=> $lastname, "firstname" => $firstname, "course" => $course, "description" => $description, "semester" => $semester));
         
 			if($result) {        
-				echo "Änderungen erfolgreich. ";
-					$_SESSION["username"]=$user["nickname"];
+				$Message = "Änderungen erfolgreich. ";
+				session_destroy();
+				session_start();
+				$_SESSION["username"]=$user["nickname"]; //change session, because username might have changed
+				header("Refresh:0"); //reload page
 
 			} else {
-				echo 'Es ist ein Fehler aufgetreten, bitte versuche es erneut.<br>';
+				$Message = 'Es ist ein Fehler aufgetreten, bitte versuche es erneut.<br>';
+				$error = true;
 			}
 		}
     
         
     } 
 }
+
+
 ?>
 	
 <article class="col-xs-9">
     <section>
+		
         <h2>Profilübersicht</h2>
 		<?php
-        // Show all offers in a table
+        // Show all offers in a table, deactivated until button is pressed
 		
 		$statement = $pdo->prepare("SELECT * FROM member WHERE nickname = :username");
 		$result = $statement->execute(array('username' => $_SESSION["username"]));
@@ -104,7 +111,7 @@ if(isset($_POST['confirm_change'])) {
 		Nickname :
 		</td>
 		<td> 
-			<input type="text" name="change_username" value= <?php echo $user["nickname"];?> disabled> <!--enabled on click change_userdata-->
+			<input type="text" name="change_username" disabled value="<?php echo $user["nickname"]; ?>" > <!--enabled on click change_userdata-->
         </td>
         </tr>
 		<tr>
@@ -112,7 +119,7 @@ if(isset($_POST['confirm_change'])) {
 		Vorname :
 		</td>
 		<td> 
-			<input type="text" name="change_firstname" value= <?php echo $user["firstName"];?> disabled> <!--enabled on click change_userdata-->
+			<input type="text" name="change_firstname"  value= "<?php echo  $user["firstName"];?>" disabled> <!--enabled on click change_userdata-->
         </td>
         </tr>
 		<tr>
@@ -120,7 +127,7 @@ if(isset($_POST['confirm_change'])) {
 		Nachname :
 		</td>
 		<td> 
-			<input type="text" name="change_lastname" value= <?php echo $user["lastName"];?> disabled> <!--enabled on click change_userdata-->
+			<input type="text" name="change_lastname" value= "<?php echo $user["lastName"];?>" disabled> <!--enabled on click change_userdata-->
         </td>
         </tr>
 		<tr>
@@ -128,7 +135,7 @@ if(isset($_POST['confirm_change'])) {
 		Studiengang :
 		</td>
 		<td> 
-			<input type="text" name="change_course" value= <?php echo $user["studyPath"];?> disabled> <!--enabled on click change_userdata-->
+			<input type="text" name="change_course" value= "<?php echo $user["studyPath"];?>" disabled> <!--enabled on click change_userdata-->
         </td>
         </tr>
 		<tr>
@@ -136,7 +143,7 @@ if(isset($_POST['confirm_change'])) {
 		Startsemester :
 		</td>
 		<td> 
-			<input type="text" name="change_semester" value= <?php echo $user["startsem"];?> disabled> <!--enabled on click change_userdata-->
+			<input type="text" name="change_semester" value= "<?php echo $user["startsem"];?>" disabled> <!--enabled on click change_userdata-->
         </td>
         </tr>
 		<tr>
@@ -162,16 +169,19 @@ if(isset($_POST['confirm_change'])) {
 		
 		<!--confirm change by entering password and submitting-->
 		
-		<input type="password" name="password" id="confirm_password" style="display: none" placeholder="Passwort erforderlich..." required><br><br>
+		<input type="password" name="confirm_password" style="display: none" placeholder="Passwort erforderlich..." required><br><br>
 
-		<input type="submit" id = "confirm_button" name = "confirm_change" style="display: none" value="Änderungen bestätigen" ><br><br>
+		<input type="submit" name = "confirm_change" style="display: none" value="Änderungen bestätigen" ><br><br>
 		</form> 
 		
 		<?php
+		
 		if($user["admin"]==0)	{
 			echo "<br>Du bist ein Admin, juchuh! <br>";
 		}
-       
+       	if(isset($Message)) {
+    		echo $Message;
+		} 
         ?>
         
     </section>
