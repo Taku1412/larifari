@@ -7,9 +7,7 @@ try {
     echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
 }
 
-if(isset($errorMessage)) {
-    echo $errorMessage;
-}
+
 	
 $showFormular = true;
  
@@ -79,4 +77,7 @@ if($showFormular) {
 	  <input type="submit" value="Registrieren" name = "register"> 
 <?php
 } //fi($showFormular)
+if(isset($errorMessage)) {
+    echo $errorMessage;
+}
 ?>
