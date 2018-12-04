@@ -35,7 +35,7 @@ if(isset($_POST['confirm_change'])) {
     if(!password_verify($confirm_password,$user['password'])) {
         //echo "falsches Passwort.<br>";
 		$error = true;
-        $Message = "falsches Passwort.<br>";
+        $Message = "Keine Änderungen durchgeführt. Das Passwort war falsch, bitte versuche es erneut.<br>";
     }
     
 	//kein Fehler und Username soll aktualisiert werden
@@ -94,73 +94,78 @@ if(isset($_POST['confirm_change'])) {
 ?>
 	
 <article class="col-xs-9">
+	
     <section>
 		
         <h2>Profilübersicht</h2>
-		<?php
+		<p><?php
+		if(isset($Message)) {
+    		echo $Message;
+		} 
         // Show all offers in a table, deactivated until button is pressed
 		
 		$statement = $pdo->prepare("SELECT * FROM member WHERE nickname = :username");
 		$result = $statement->execute(array('username' => $_SESSION["username"]));
     	$user = $statement->fetch();
 		?>
+		</p>
 		<form action="main.php?page=profile" method="post" name="change_form">
 		<table>
 		<tr>
-		<td>
-		Nickname :
-		</td>
-		<td> 
-			<input type="text" name="change_username" disabled value="<?php echo $user["nickname"]; ?>" > <!--enabled on click change_userdata-->
-        </td>
+			<td>
+				Nickname :
+			</td>
+			<td> 
+				<input type="text" name="change_username" disabled value="<?php echo $user["nickname"]; ?>" > <!--enabled on click change_userdata-->
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Vorname :
+			</td>
+			<td> 
+				<input type="text" name="change_firstname"  value= "<?php echo  $user["firstName"];?>" disabled> <!--enabled on click change_userdata-->
+			</td>
         </tr>
 		<tr>
-		<td>
-		Vorname :
-		</td>
-		<td> 
-			<input type="text" name="change_firstname"  value= "<?php echo  $user["firstName"];?>" disabled> <!--enabled on click change_userdata-->
-        </td>
+			<td>
+				Nachname :
+			</td>
+			<td> 
+				<input type="text" name="change_lastname" value= "<?php echo $user["lastName"];?>" disabled> <!--enabled on click change_userdata-->
+			</td>
         </tr>
 		<tr>
-		<td>
-		Nachname :
-		</td>
-		<td> 
-			<input type="text" name="change_lastname" value= "<?php echo $user["lastName"];?>" disabled> <!--enabled on click change_userdata-->
-        </td>
+			<td>
+				Studiengang :
+			</td>
+			<td> 
+				<input type="text" name="change_course" value= "<?php echo $user["studyPath"];?>" disabled> <!--enabled on click change_userdata-->
+			</td>
         </tr>
 		<tr>
-		<td>
-		Studiengang :
-		</td>
-		<td> 
-			<input type="text" name="change_course" value= "<?php echo $user["studyPath"];?>" disabled> <!--enabled on click change_userdata-->
-        </td>
+			<td>
+				Startsemester :
+			</td>
+			<td> 
+				<input type="text" name="change_semester" value= "<?php echo $user["startsem"];?>" disabled> <!--enabled on click change_userdata-->
+			</td>
         </tr>
 		<tr>
-		<td>
-		Startsemester :
-		</td>
-		<td> 
-			<input type="text" name="change_semester" value= "<?php echo $user["startsem"];?>" disabled> <!--enabled on click change_userdata-->
-        </td>
+			<td>
+				Beschreibung :
+			</td>
+			<td> 
+				<textarea name = "change_description" rows="4" cols="50" disabled><?php echo $user["description"];?></textarea>
+			</td>
         </tr>
 		<tr>
-		<td>
-		Beschreibung :
-		</td>
-		<td> 
-			<textarea name = "change_description" rows="4" cols="50" disabled><?php echo $user["description"];?></textarea>
-        </td>
-        </tr>
-		<tr>
-		<td>
-		Neues Passwort :
-		</td>
-		<td> 
-			<input type="password" name="change_password"  disabled> <!--enabled on click change_userdata-->
-        </td>
+			<td>
+				Neues Passwort :
+			</td>
+			<td> 
+				<input type="password" name="change_password"  disabled> <!--enabled on click change_userdata-->
+			</td>
         </tr>
 			
 		</table>
@@ -179,9 +184,7 @@ if(isset($_POST['confirm_change'])) {
 		if($user["admin"]==0)	{
 			echo "<br>Du bist ein Admin, juchuh! <br>";
 		}
-       	if(isset($Message)) {
-    		echo $Message;
-		} 
+       	
         ?>
         
     </section>
