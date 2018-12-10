@@ -68,6 +68,17 @@ if (isset ($_SESSION["username"])){
                             <li> <a href="main.php?page=offers">Anzeigen</a> </li>
                             <li> <a href="main.php?page=myoffers">Meine Angebote</a> </li>
                             <li> <a  href="main.php?page=messages">Nachrichten</a> </li>
+							<?php
+							//logged in user
+							$statement = $pdo->prepare("SELECT admin FROM member WHERE nickname = :username");
+							$result = $statement->execute(array('username' => $_SESSION["username"]));
+							$user = $statement->fetch();
+							if($user["admin"]==1){
+								?>
+								<li> <a  href="main.php?page=admin">Adminbereich</a> </li> //erscheint nur wenn admin auf 1 gesetzt
+							<?php
+							}
+							?>
                         </ul>
                     </div>
                 </div>
@@ -89,7 +100,9 @@ if (isset ($_SESSION["username"])){
             } else if ($_GET["page"]=="profile"){
                 include('profile.php');	
             } else if ($_GET["page"]=="messages"){
-                include('messages.php');	
+                include('messages.php');
+			} else if ($_GET["page"]=="admin"){
+                include('admin.php');
             } else {
                 include("start.php");
             }
