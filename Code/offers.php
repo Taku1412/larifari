@@ -19,7 +19,7 @@ try {
         ?>
         <table>
             <tr>
-                <th>Title</th>
+                <th>Titel</th>
                 <th>Autor</th>
                 <th>Anbieter</th>
                 <th>Preis</th>

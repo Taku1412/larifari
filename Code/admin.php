@@ -13,7 +13,7 @@ try {
 	if($_SESSION["admin"]==1){
 		
 	?>
-	<section class="col-xs-5">
+	<section class="col-xs-6">
 		
 		
         <h2>Mitgliederliste</h2>
@@ -29,21 +29,30 @@ try {
 			<table>
 				<tr>
 					<th>Benutzername</th>
-					<th>Vorname</th>
-					<th>Nachname</th>
+					<th>Admin</th>
 					<th>Details</th>
 					<th>Löschen</th>
 				</tr>
 
 			<?php
 			foreach ($pdo->query($sql) as $row) {
-				echo "<tr>
-					<td>$row[nickname]</td>
-					<td>$row[firstName]</td>
-					<td>$row[lastName]</td>
-					<td><a href='main.php?page=foreignprofile&username=$row[nickname]' class='button'>Link zum Profil</a></td>
-					<td>Button zum Löschen</td>
-				</tr>";
+			?>
+				<tr>
+					<td><?php echo $row['nickname'] ?></td>
+					<td><?php 
+						if($row['admin']==1){
+							echo "Ja";
+						}else{
+							echo "Nein";
+						}
+						?>
+					</td>
+					<td><?php echo"<a href='main.php?page=foreignprofile&username=$row[nickname]' class='button'>Link zum Profil</a>" ?></td>
+					<td><form action="main.php" method="post">
+							<input type="submit" value="X" name = "delete"><br><br>
+						</form></td>
+				</tr>
+			<?php
 			}
 
 			?>
@@ -66,11 +75,9 @@ try {
 			?>
 			<table>
 				<tr>
-					<th>Title</th>
+					<th>Titel</th>
 					<th>Autor</th>
 					<th>Anbieter</th>
-					<th>Preis</th>
-					<th>Bild</th>
 					<th>Details</th>
 					<th>Löschen</th>
 				</tr>
@@ -81,8 +88,6 @@ try {
 					<td>$row[title]</td>
 					<td>$row[author]</td>
 					<td>$row[offerer]</td>
-					<td>$row[price]</td>
-					<td>$row[picture]</td>
 					<td>Link zu Details</td>
 					<td>Button zum Löschen</td>
 				</tr>";
