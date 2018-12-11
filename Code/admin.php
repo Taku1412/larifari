@@ -13,7 +13,7 @@ try {
 	if($_SESSION["admin"]==1){
 		
 	?>
-	<section class="col-xs-6">
+	<section class="col-xs-5">
 		
 		
         <h2>Mitgliederliste</h2>
@@ -28,26 +28,22 @@ try {
 			?>
 			<table>
 				<tr>
-					<th>Title</th>
-					<th>Autor</th>
-					<th>Anbieter</th>
-					<th>Preis</th>
-					<th>Bild</th>
+					<th>Benutzername</th>
+					<th>Vorname</th>
+					<th>Nachname</th>
 					<th>Details</th>
 					<th>Löschen</th>
 				</tr>
 
 			<?php
 			foreach ($pdo->query($sql) as $row) {
-				echo '<tr>
+				echo "<tr>
 					<td>$row[nickname]</td>
 					<td>$row[firstName]</td>
 					<td>$row[lastName]</td>
-					<td>$row[studyPath]</td>
-					<td>$row[startsem]</td>
-					<td><a href="main.php?page=messages&foreignprofile=$user['nickname']" class="button">Link zum Profil</a></td>
+					<td><a href='main.php?page=foreignprofile&username=$row[nickname]' class='button'>Link zum Profil</a></td>
 					<td>Button zum Löschen</td>
-				</tr>';
+				</tr>";
 			}
 
 			?>
