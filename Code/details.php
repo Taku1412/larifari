@@ -55,8 +55,27 @@ try {
                     <tr>
                         <td>Zustand</td><td>$offer[item_state]</td>
                     </tr>
-                </table>
-                ";
+                    <tr>
+                        <td>Anzeige</td><td>$offer[offer_state]</td>
+                    </tr>";
+                if ($offer["price"] != null){
+                    echo "<tr><td>Preis</td><td>$offer[price]</td></tr>";
+                }
+                if ($offer["description"] != ""){
+                    echo "<tr><td>Beschreibung</td><td>$offer[description]</td></tr>";
+                }
+                if ($offer["picture"] != null){
+                    echo "<tr><td>Bild</td><td>$offer[picture]</td></tr>";
+                }
+                if ($offer["isbn"] != null){
+                    echo "<tr><td>ISBN</td><td>$offer[isbn]</td></tr>";
+                }
+                if ($offer["edition"] != null){
+                    echo "<tr><td>Edition</td><td>$offer[edition]</td></tr>";
+                }
+                
+                    
+                echo "</table>";
             }            
         } else {
             ?>
