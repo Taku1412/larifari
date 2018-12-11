@@ -131,6 +131,7 @@ if(isset($_POST['delete_offer'])) {
 				</tr>
 
 			<?php
+
 			foreach ($pdo->query($sql) as $row) {?><tr>
 					<td><?php echo $row['title']?></td>
 					<td><?php echo $row['author']?></td>
@@ -142,6 +143,7 @@ if(isset($_POST['delete_offer'])) {
 						</form></td></td>
 				</tr>
 			<?php
+
 			}
 
 			?>

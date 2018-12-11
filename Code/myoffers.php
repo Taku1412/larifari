@@ -10,6 +10,7 @@ try {
 // Test if offer should be saved
 if (isset($_POST["submitOffer"])){
     // Write data in database
+    
     $statement = $pdo->prepare("INSERT INTO offer (title,author,offerer,offer_state,item_state,price,description,picture,isbn,edition) VALUES (:title,:author,:offerer,:offer_state,:item_state,:price,:description,:picture,:isbn,:edition)");
 
     $result = $statement->execute(array("title" => $_POST["title"], 
@@ -17,11 +18,33 @@ if (isset($_POST["submitOffer"])){
                                         "offerer" => $_SESSION["username"],
                                        "offer_state" => $_POST["offer_state"],
                                        "item_state" => $_POST["item_state"],
-                                       "price" => $_POST["price"],
+                                        "price" => $_POST["price"],
                                        "description" => $_POST["description"],
                                        "picture" => $_POST["picture"],
                                        "isbn" => $_POST["isbn"],
                                        "edition" => $_POST["edition"]));
+    // Save modules
+    $statement = $pdo->prepare("INSERT INTO offer_module (module,offer) VALUES (:module,:offer)");
+    $offer_id = $pdo->lastInsertId();
+    
+    $mod_id = 0;
+    $mod_el = "module0";
+    while (isset($_POST[$mod_el])){
+        $result = $statement->execute(array("module" => $_POST[$mod_el],"offer" => $offer_id));
+        $mod_id += 1;
+        $mod_el = "module".$mod_id;
+    }
+    
+    //Save courses
+    $statement = $pdo->prepare("INSERT INTO offer_studypath (study_path,offer) VALUES (:module,:offer)");
+    
+    $course_id = 0;
+    $course_el = "course0";
+    while (isset($_POST[$course_el])){
+        $result = $statement->execute(array("module" => $_POST[$course_el],"offer" => $offer_id));
+        $course_id += 1;
+        $course_el = "course".$course_id;
+    }
     
     $showSuccess = true;
 } else {
@@ -30,8 +53,12 @@ if (isset($_POST["submitOffer"])){
 ?>
 
 <article class="col-xs-9">
-    <section>
-        <h2>Eigene Anzeigen</h2>
+    <section class="col-xs-6">
+       <h2>Eigene Anzeigen</h2> 
+    </section>
+    
+    <section class="col-xs-6">
+        <h2>Neue Anzeige</h2>
         <?php 
         if ($showSuccess){
             echo "Anzeige erfolgreich eingetragen.";
@@ -43,8 +70,12 @@ if (isset($_POST["submitOffer"])){
             <form action="main.php?page=myoffers" method="post">
                 Titel: <br><input type="text" name="title" required> <br><br>
                 Autor: <br><input type="text" name="author" required> <br><br>
-                Module: Hier mit einzelnen Textfeldern? Füge selbst hinzu, je nachdem wie viele man braucht<br><br>
-                Studiengänge: Selbes<br><br>
+                Module: <br><div id="input_module"><input type="text" name="module0" id="module0"></div>
+                <input type="button" onclick="addModule()" value="+">
+                <br><br>
+                Studiengänge: <br><div id="input_course"><input type="text" name="course0" id="course0"></div>
+                <input type="button" onclick="addCourse()" value="+">
+                <br><br>
                 Zustand: <br><input type="text" name="item_state" required> <br><br>
                 Anzeige ist:<br><select name="offer_state" required>
                     <?php
