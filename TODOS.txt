@@ -17,4 +17,7 @@ in register:
 admin:
 	wenn linkzudetails in offers erstellt, auch in admin ändern
 
+in den files die mit den anzeigen arbeiten:
+	bilder ordentlich anzeigen (mit link?)
+
 
