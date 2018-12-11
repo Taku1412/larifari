@@ -88,7 +88,7 @@ try {
 					<td>$row[title]</td>
 					<td>$row[author]</td>
 					<td>$row[offerer]</td>
-					<td>Link zu Details</td>
+					<td><a href='main.php?page=details&offer=$row[oID]'>Mehr</a></td>
 					<td>Button zum Löschen</td>
 				</tr>";
 			}
