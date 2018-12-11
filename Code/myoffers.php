@@ -43,7 +43,7 @@ if (isset($_POST["submitOffer"])){
             <form action="main.php?page=myoffers" method="post">
                 Titel: <br><input type="text" name="title" required> <br><br>
                 Autor: <br><input type="text" name="author" required> <br><br>
-                Module: Hier mit einzelnen Textfeldern? Füge selbst hinzu, je nachdem wie viele man braucht<br><br>
+                Module: <br><div id="input_module"><input type="text" name="mod0"></div><button onchange="addModule()">+</button><br><br>
                 Studiengänge: Selbes<br><br>
                 Zustand: <br><input type="text" name="item_state" required> <br><br>
                 Anzeige ist:<br><select name="offer_state" required>
