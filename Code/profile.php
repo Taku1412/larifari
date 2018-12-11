@@ -181,7 +181,7 @@ if(isset($_POST['confirm_change'])) {
 		
 		<?php
 		
-		if($user["admin"]==0)	{
+		if($user["admin"]==1)	{
 			echo "<br>Du bist ein Admin, juchuh! <br>";
 		}
        	
