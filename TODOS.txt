@@ -14,5 +14,7 @@ in register:
 ÜBERALL:
 	class="button" zu class="btn btn-default" ändern oder so (BOOTSTRAP)
 	Alerts machen bei Fehlermeldungen!
+admin:
+	wenn linkzudetails in offers erstellt, auch in admin ändern
 
 

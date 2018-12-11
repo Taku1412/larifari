@@ -13,7 +13,7 @@ try {
 	if($_SESSION["admin"]==1){
 		
 	?>
-	<section class="col-xs-4">
+	<section class="col-xs-6">
 		
 		
         <h2>Mitgliederliste</h2>
@@ -21,53 +21,79 @@ try {
             Lösche Mitglieder
         </p>
         <p>
-          
-		Stille Nacht, heilige Nacht!
-		Alles schläft, einsam wacht
-		Nur das traute, hochheilige Paar.
-		Holder Knabe im lockigen Haar,
-		Schlaf in himmlischer Ruh,
-		Schlaf in himmlischer Ruh.
+        <?php
+			// Show all members in a table
 
-		Stille Nacht! Heil’ge Nacht!
-		Gottes Sohn! O! wie lacht
-		Lieb’ aus Deinem göttlichen Mund,
-		Da uns schlägt die rettende Stund;
-		Jesus! in Deiner Geburth!
-		Jesus in Deiner Geburth!
+			$sql = "SELECT * FROM `member`";
+			?>
+			<table>
+				<tr>
+					<th>Title</th>
+					<th>Autor</th>
+					<th>Anbieter</th>
+					<th>Preis</th>
+					<th>Bild</th>
+					<th>Details</th>
+					<th>Löschen</th>
+				</tr>
 
+			<?php
+			foreach ($pdo->query($sql) as $row) {
+				echo '<tr>
+					<td>$row[nickname]</td>
+					<td>$row[firstName]</td>
+					<td>$row[lastName]</td>
+					<td>$row[studyPath]</td>
+					<td>$row[startsem]</td>
+					<td><a href="main.php?page=messages&foreignprofile=$user['nickname']" class="button">Link zum Profil</a></td>
+					<td>Button zum Löschen</td>
+				</tr>';
+			}
 
-		Stille Nacht, heilige Nacht!
-		Gottes Sohn, o wie lacht
-		Lieb aus deinem göttlichen Mund,
-		Da uns schlägt die rettende Stund,
-		Christ, in deiner Geburt,
-		Christ, in deiner Geburt.
+			?>
+			</table>
 
         </p>
     </section>
-	<section class="col-xs-4">
+	<section class="col-xs-6">
         <h2>Anzeigeliste</h2>
         <p>
             Lösche Anzeigen
         </p>
         <p>
-                Tochter Zion, freue dich, jauchze laut, Jerusalem!
-				Sieh, dein König kommt zu dir, ja, er kommt, der Friedefürst.
-				Tochter Zion, freue dich, jauchze laut, Jerusalem!
+         
+			<?php
+			// Show all offers in a table
+			// Default: order by oID
 
-				Hosianna, Davids Sohn, sei gesegnet deinem Volk!
-				Gründe nun dein ewges Reich, Hosianna in der Höh!
-				Hosianna, Davids Sohn, sei gesegnet deinem Volk!
+			$sql = "SELECT * FROM `offer`";
+			?>
+			<table>
+				<tr>
+					<th>Title</th>
+					<th>Autor</th>
+					<th>Anbieter</th>
+					<th>Preis</th>
+					<th>Bild</th>
+					<th>Details</th>
+					<th>Löschen</th>
+				</tr>
 
-				(Sieh! er kömmt demüthiglich
-				Reitet auf dem Eselein,
-				Tochter Zion freue dich!
-				Hol ihn jubelnd zu dir ein.)[8]
+			<?php
+			foreach ($pdo->query($sql) as $row) {
+				echo "<tr>
+					<td>$row[title]</td>
+					<td>$row[author]</td>
+					<td>$row[offerer]</td>
+					<td>$row[price]</td>
+					<td>$row[picture]</td>
+					<td>Link zu Details</td>
+					<td>Button zum Löschen</td>
+				</tr>";
+			}
 
-				Hosianna, Davids Sohn, sei gegrüßet, König mild!
-				Ewig steht dein Friedensthron, du des ewgen Vaters Kind.
-				Hosianna, Davids Sohn, sei gegrüßet, König mild!
+			?>
+			</table>
         </p>
     </section>
 	<?php
