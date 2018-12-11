@@ -11,5 +11,8 @@ In profile, login und register:
 
 in register:
 	wird errorMessage richtig verwendet? evtl so wie in profile?
+ÜBERALL:
+	class="button" zu class="btn btn-default" ändern oder so (BOOTSTRAP)
+	Alerts machen bei Fehlermeldungen!
 
 

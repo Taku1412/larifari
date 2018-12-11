@@ -102,7 +102,7 @@ if(isset($_POST['confirm_change'])) {
 		if(isset($Message)) {
     		echo $Message;
 		} 
-        // Show all offers in a table, deactivated until button is pressed
+        // Show userinfo in a table, input fields deactivated until button is pressed
 		
 		$statement = $pdo->prepare("SELECT * FROM member WHERE nickname = :username");
 		$result = $statement->execute(array('username' => $_SESSION["username"]));
@@ -113,7 +113,7 @@ if(isset($_POST['confirm_change'])) {
 		<table>
 		<tr>
 			<td>
-				Nickname :
+				Benutzername :
 			</td>
 			<td> 
 				<input type="text" name="change_username" disabled value="<?php echo $user["nickname"]; ?>" > <!--enabled on click change_userdata-->
