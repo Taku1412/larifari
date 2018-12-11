@@ -15,9 +15,12 @@ in register:
 	class="button" zu class="btn btn-default" ändern oder so (BOOTSTRAP)
 	Alerts machen bei Fehlermeldungen!
 admin:
-	wenn linkzudetails in offers erstellt, auch in admin ändern
+	wenn link zu details in offers erstellt, auch in admin ändern
 
 in den files die mit den anzeigen arbeiten:
 	bilder ordentlich anzeigen (mit link?)
+
+in admin:
+	vielleicht sowas wie eine Bestätigung ob man den user wirklich löschen will
 
 
