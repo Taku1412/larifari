@@ -61,7 +61,11 @@ try {
                 foreach ($pdo->query($sql) as $row) {
                     array_push($res,$row["module"]);
                 }
-                echo implode(", ",$res);
+                if (empty($res)){
+                    echo "Keine Module zugeordnet.";
+                } else {
+                   echo implode(", ",$res);
+                }
                 echo "</td></tr>";
                 
                 echo "<tr><td>Zugehörige Studiengänge</td><td>";
@@ -70,7 +74,11 @@ try {
                 foreach ($pdo->query($sql) as $row) {
                     array_push($res,$row["study_path"]);
                 }
-                echo implode(", ",$res);
+                if (empty($res)){
+                    echo "Keine Studiengänge zugeordnet.";
+                } else {
+                   echo implode(", ",$res); 
+                }
                 echo "</td></tr>";
                 
                 if ($offer["price"] != null){
