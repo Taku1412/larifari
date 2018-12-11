@@ -105,6 +105,8 @@ if (isset ($_SESSION["username"])){
                 include('admin.php');
 			} else if ($_GET["page"]=="foreignprofile"){
                 include('foreignprofile.php');
+            } else if ($_GET["page"]=="details"){
+                include('details.php');
             } else {
                 include("start.php");
             }
