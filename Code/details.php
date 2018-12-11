@@ -200,7 +200,7 @@ if(isset($_POST['confirm_change'])) {
                     }
                     if ($offer["description"] != ""){
                         echo "<tr><td>Beschreibung</td><td>
-                        <textarea name='change_description' placeholder='Beschreibe das abzugebende Buch' disabled> $offer[description] </textarea>
+                        <textarea name='change_description' placeholder='Beschreibe das abzugebende Buch' disabled>$offer[description]</textarea>
                         </td></tr>";
                     } else {
                        echo "<tr><td>Beschreibung</td><td>

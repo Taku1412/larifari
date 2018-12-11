@@ -13,9 +13,12 @@ in register:
 	wird errorMessage richtig verwendet? evtl so wie in profile?
 ÜBERALL:
 	class="button" zu class="btn btn-default" ändern oder so (BOOTSTRAP)
-	Alerts machen bei Fehlermeldungen!
+	Alerts machen bei Fehlermeldungen! (einheitlich)
+	Anzeigen nur ausgeben, wenn sie offen sind, nicht gesperrt oder geschlossen
+	generelle frage: was genau heißen die zustände und wer kann sie ändern? Bespreche damit einheitliche implementierung
+	
 admin:
-	wenn link zu details in offers erstellt, auch in admin ändern
+	wenn link zu details in offers erstellt, auch in admin ändern (DONE)
 
 in den files die mit den anzeigen arbeiten:
 	bilder ordentlich anzeigen (mit link?)
