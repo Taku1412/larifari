@@ -13,7 +13,7 @@ try {
 	if($_SESSION["admin"]==1){
 		
 	?>
-	<section>
+	<section class="col-xs-4">
 		
 		
         <h2>Mitgliederliste</h2>
@@ -46,7 +46,7 @@ try {
 
         </p>
     </section>
-	<section>
+	<section class="col-xs-4">
         <h2>Anzeigeliste</h2>
         <p>
             Lösche Anzeigen

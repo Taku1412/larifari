@@ -75,7 +75,7 @@ if (isset ($_SESSION["username"])){
 							$user = $statement->fetch();
 							if($user["admin"]==1){
 								?>
-								<li> <a  href="main.php?page=admin">Adminbereich</a> </li> //erscheint nur wenn admin auf 1 gesetzt
+								<li> <a  href="main.php?page=admin">Adminbereich</a> </li> <!--erscheint nur wenn admin auf 1 gesetzt-->
 							<?php
 							}
 							?>
