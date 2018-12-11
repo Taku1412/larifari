@@ -103,6 +103,8 @@ if (isset ($_SESSION["username"])){
                 include('messages.php');
 			} else if ($_GET["page"]=="admin"){
                 include('admin.php');
+			} else if ($_GET["page"]=="foreignprofile"){
+                include('foreignprofile.php');
             } else {
                 include("start.php");
             }
