@@ -17,6 +17,7 @@ if(isset($_POST['login'])) {
 	
 	if ($username !== false && password_verify($password,$user['password'])) { 
         $_SESSION['username'] = $user['nickname'];
+		$_SESSION['admin'] = $user['admin'];
         header("Location: main.php");
 		exit; 
     } else {

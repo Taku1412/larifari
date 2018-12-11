@@ -9,7 +9,13 @@ try {
 ?>
 
 <article class="col-xs-9">
-    <section>
+    <?php 
+	if($_SESSION["admin"]==1){
+		
+	?>
+	<section>
+		
+		
         <h2>Mitgliederliste</h2>
         <p>
             Lösche Mitglieder
@@ -64,4 +70,11 @@ try {
 				Hosianna, Davids Sohn, sei gegrüßet, König mild!
         </p>
     </section>
+	<?php
+	}else{
+	?>
+		<p> Kein Zugriff </p> 
+	<?php
+	}
+	?>
 </article>
