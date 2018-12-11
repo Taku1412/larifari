@@ -75,7 +75,7 @@ try {
                 echo "<div style='float:right'><a href='main.php?page=messages&contact=$contact'>Neu laden</a></div>";
             } else {
                 // There is no user with the specific username: error
-                echo "Es gibt keinen User mit dem Namen $contact";
+                echo "<h2>Nachrichten</h2>Es gibt keinen User mit dem Namen $contact";
             }
             
             

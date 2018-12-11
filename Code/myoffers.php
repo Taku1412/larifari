@@ -46,8 +46,7 @@ if (isset($_POST["submitOffer"])){
                 Module: Hier mit einzelnen Textfeldern? Füge selbst hinzu, je nachdem wie viele man braucht<br><br>
                 Studiengänge: Selbes<br><br>
                 Zustand: <br><input type="text" name="item_state" required> <br><br>
-                Anzeige ist:<br><select name="offer_state">
-                    <option value="" selected>Keine Angabe</option>
+                Anzeige ist:<br><select name="offer_state" required>
                     <?php
                     $sql = "SELECT sID,state FROM offer_state";
                     foreach ($pdo->query($sql) as $row) {

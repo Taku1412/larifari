@@ -150,9 +150,9 @@ CREATE TABLE `offer_state` (
 --
 
 INSERT INTO `offer_state` (`sID`, `state`) VALUES
-(0, 'closed'),
-(1, 'open'),
-(2, 'locked');
+(0, 'geschlossen'),
+(1, 'offen'),
+(2, 'gesperrt');
 
 -- --------------------------------------------------------
 
