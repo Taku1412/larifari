@@ -10,7 +10,6 @@ try {
 
 <article class="col-xs-9">
     <section>
-        <h2>Nachrichten</h2>
         <?php
         
         // Design-Vorschlag: https://bootsnipp.com/snippets/featured/message-chat-box
@@ -45,6 +44,8 @@ try {
                                            "opened" => 0));
 
                 }
+                
+                echo "<h2>Nachrichten an $contact</h2>";
 
                 // Show chat with one specific user
                 $sql = "SELECT receiver,sender,message FROM messages WHERE (sender = '$_SESSION[username]' and receiver = '$contact') or (receiver = '$_SESSION[username]' and sender = '$contact') ORDER BY timestmp ASC";
@@ -81,6 +82,7 @@ try {
         } else {
             // Write a new message: show all users
             ?>
+            <h2>Nachrichten</h2>
             <p> <form action="main.php?page=messages&contact=" method="post">
                 Neue Nachricht an:
             <datalist id="user">
