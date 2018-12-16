@@ -1,12 +1,4 @@
 <?php
-// Establish connection to database
-try {
-    $pdo = new PDO($_SESSION["source"],$_SESSION["user"],$_SESSION["password"]);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
-}
-
 //delete user and related
 if(isset($_POST['delete_user'])) {
 	//delete modules related to the offers 

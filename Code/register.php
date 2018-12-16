@@ -1,14 +1,4 @@
 <?php 
-// Establish connection to the database
-try {
-    $pdo = new PDO($_SESSION["source"],$_SESSION["user"],$_SESSION["password"]);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
-}
-
-
-	
 $showFormular = true;
  
 if(isset($_POST['register'])) {

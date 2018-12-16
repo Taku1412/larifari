@@ -1,12 +1,4 @@
 <?php 
-// Establish connection to the database
-try {
-    $pdo = new PDO($_SESSION["source"],$_SESSION["user"],$_SESSION["password"]);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
-}
-
 if(isset($_POST['login'])) {	
  	$username = $_POST['username'];
     $password = $_POST['password'];
@@ -15,7 +7,7 @@ if(isset($_POST['login'])) {
     $result = $statement->execute(array('username' => $username));
     $user = $statement->fetch();
 	
-	if ($username !== false && password_verify($password,$user['password'])) { 
+	if ($username !== false && password_verify($password, $user['password'])) { 
         $_SESSION['username'] = $user['nickname'];
 		$_SESSION['admin'] = $user['admin'];
         header("Location: main.php");

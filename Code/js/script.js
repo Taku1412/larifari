@@ -1,4 +1,4 @@
-// Skript
+// Script
 
 // myoffers: add another text field for entering multiple modules
 function addModule(el_name){
@@ -26,4 +26,17 @@ function addCourse(el_name){
     }
     var newCourse = "<br><input type='text' name='"+el+"' id='"+el+"'>";
     segm.innerHTML += newCourse;
+}
+
+//offer: add an offer as favorite 
+function favoriteOffer(username, offerID) {
+    //TODO
+    console.log("Favorite: " + username + " wants " + offerID);
+    
+}
+
+//offer: remove an offer from favorites 
+function unfavoriteOffer(username, offerID) {
+    //TODO
+    console.log("Unfavorite: " + username + " does not want " + offerID + " anymore");
 }

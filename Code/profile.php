@@ -1,16 +1,5 @@
 <script src='js/profile.js'></script>
 <?php
-// Establish connection to database
-try {
-    $pdo = new PDO($_SESSION["source"],$_SESSION["user"],$_SESSION["password"]);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
-}
-
-	
-
- 
 if(isset($_POST['confirm_change'])) {
 	
 	//logged in user
