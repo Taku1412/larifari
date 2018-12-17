@@ -1,29 +1,31 @@
 register.php: 
-	Wenn Fehler in der Eingabe und nochmal eingeben nötig 
-	-> alte Eingabe nicht löschen (z.B. Username vergeben oder Passwörter stimmen nicht überein)
+	Wenn Fehler in der Eingabe und nochmal eingeben nÃ¶tig 
+	-> alte Eingabe nicht lÃ¶schen (z.B. Username vergeben oder PasswÃ¶rter stimmen nicht Ã¼berein)
 
 GENERELLES CODE-DESIGN:
-	welche session-variablen genau? also zB admin bool speichern, wenn das öfter verwendet werden soll
-	admin==1 heißt der user ist ein admin oder nicht?
+	welche session-variablen genau? also zB admin bool speichern, wenn das Ã¶fter verwendet werden soll
+	admin==1 heiÃŸt der user ist ein admin oder nicht?
 
 In profile, login und register:
 	Message wird bei reloaden der seite als missing angezeigt
 
 in register:
 	wird errorMessage richtig verwendet? evtl so wie in profile?
-ÜBERALL:
-	class="button" zu class="btn btn-default" ändern oder so (BOOTSTRAP)
+ÃœBERALL:
+	class="button" zu class="btn btn-default" Ã¤ndern oder so (BOOTSTRAP)
 	Alerts machen bei Fehlermeldungen! (einheitlich)
 	Anzeigen nur ausgeben, wenn sie offen sind, nicht gesperrt oder geschlossen
-	generelle frage: was genau heißen die zustände und wer kann sie ändern? Bespreche damit einheitliche implementierung
+	generelle frage: was genau heiÃŸen die zustÃ¤nde und wer kann sie Ã¤ndern? Bespreche damit einheitliche implementierung
 	
 admin:
-	wenn link zu details in offers erstellt, auch in admin ändern (DONE)
+	wenn link zu details in offers erstellt, auch in admin Ã¤ndern (DONE)
 
 in den files die mit den anzeigen arbeiten:
 	bilder ordentlich anzeigen (mit link?)
 
 in admin:
-	vielleicht sowas wie eine Bestätigung ob man den user wirklich löschen will
+	vielleicht sowas wie eine BestÃ¤tigung ob man den user wirklich lÃ¶schen will
 
-
+Ãœberall:
+    htmlspecialcharacters einfÃ¼gen fÃ¼r eingaben
+    struktur wie in der Ã¼bung?
