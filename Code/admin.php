@@ -85,15 +85,15 @@ if(isset($_POST['delete_offer'])) {
 						}
 						?>
 					</td>
-					<td><?php echo"<a href='main.php?page=foreignprofile&username=$row[nickname]' class='button'>Link zum Profil</a>" ?></td>
+					<td><?php echo"<a href='?page=foreignprofile&username=$row[nickname]' class='button'>Link zum Profil</a>" ?></td>
 					<td>
-						<form action="main.php?page=admin" method="post" name='delete_form' >
+						<form action="?page=admin" method="post" name='delete_form' >
 							<input type="hidden" name="name" value= "<?php echo $row["nickname"];?>">
 							<input type="submit" value="Löschen" name = "delete_user" ><br><br>
 						</form>
 					</td>
 					<td>
-						<form action="main.php?page=admin" method="post" name='lock_form' >
+						<form action="?page=admin" method="post" name='lock_form' >
 							<input type="hidden" name="name" value= "<?php echo $row["nickname"];?>">
 							<input type="submit" value="Sperren" name = "lock_user" ><br><br>
 						</form>
@@ -136,7 +136,7 @@ if(isset($_POST['delete_offer'])) {
 					<td><?php echo $row['author']?></td>
 					<td><?php echo $row['offerer']?></td>
 					<td>Link zu Details</td>
-					<td><form action="main.php?page=admin" method="post" name='delete_form' >
+					<td><form action="?page=admin" method="post" name='delete_form' >
 							<input type="hidden" name="oID" value= "<?php echo $row["oID"];?>">
 							<input type="submit" value="X" name = "delete_offer" ><br><br>
 						</form></td></td>

@@ -27,7 +27,7 @@
                 <td>$row[offerer]</td>
                 <td>$row[price]</td>
                 <td>$row[picture]</td>
-                <td><a href='main.php?page=details&offer=$row[oID]'>Mehr</a></td>
+                <td><a href='?page=details&offer=$row[oID]'>Mehr</a></td>
             </tr>";
         }
 

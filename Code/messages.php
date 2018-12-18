@@ -56,13 +56,13 @@
                     echo "Keine Nachrichten<br>";
                 }
 
-                echo "<form action='main.php?page=messages&contact=$contact' method='post'>";
+                echo "<form action='?page=messages&contact=$contact' method='post'>";
                 ?>
                     <input type="text" name="msg" required><input type="submit" name="sendMsg" value="Nachricht abschicken">
                 </form>
                 <?php
                 // Reload the page to show new messages
-                echo "<div style='float:right'><a href='main.php?page=messages&contact=$contact'>Neu laden</a></div>";
+                echo "<div style='float:right'><a href='?page=messages&contact=$contact'>Neu laden</a></div>";
             } else {
                 // There is no user with the specific username: error
                 echo "<h2>Nachrichten</h2>Es gibt keinen User mit dem Namen $contact";
@@ -73,7 +73,7 @@
             // Write a new message: show all users
             ?>
             <h2>Nachrichten</h2>
-            <p> <form action="main.php?page=messages&contact=" method="post">
+            <p> <form action="?page=messages&contact=" method="post">
                 Neue Nachricht an:
             <datalist id="user">
             <?php
@@ -98,7 +98,7 @@
                 $count = $pdo->prepare("SELECT sender FROM messages WHERE (receiver = '$_SESSION[username]' AND sender = '$row[contact]' AND opened = '0')");
                 $count->execute();
                 $num_msg = $count->rowCount();
-                echo "<p><a href='main.php?page=messages&contact=$row[contact]'>$row[contact] ($num_msg)</a></p>";
+                echo "<p><a href='?page=messages&contact=$row[contact]'>$row[contact] ($num_msg)</a></p>";
                 $empty = false;
             }        
             

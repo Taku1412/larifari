@@ -98,7 +98,7 @@ if(isset($_POST['confirm_change'])) {
     	$user = $statement->fetch();
 		?>
 		</p>
-		<form action="main.php?page=profile" method="post" name="change_form">
+		<form action="?page=profile" method="post" name="change_form">
 		<table>
 		<tr>
 			<td>

@@ -102,7 +102,7 @@ if(isset($_POST['confirm_change'])) {
                     // The user can edit the offer
                     echo "
                     <h2>$offer[title]</h2>
-                    <form action='main.php?page=details&offer=$id' method='post'>
+                    <form action='?page=details&offer=$id' method='post'>
                     <table>
                         <tr>
                             <td>Anzeigen-ID</td><td>$offer[oID]</td>
@@ -250,7 +250,7 @@ if(isset($_POST['confirm_change'])) {
                             <td>Titel</td><td>$offer[title]</td>
                         </tr>
                         <tr>
-                            <td>Anbieter</td><td><a href='main.php?page=foreignprofile&username=$offer[offerer]'>$offer[offerer]</a> (<a href='main.php?page=messages&contact=$offer[offerer]'>Nachricht senden</a>)</td>
+                            <td>Anbieter</td><td><a href='?page=foreignprofile&username=$offer[offerer]'>$offer[offerer]</a> (<a href='?page=messages&contact=$offer[offerer]'>Nachricht senden</a>)</td>
                         </tr>
                         <tr>
                             <td>Autor</td><td>$offer[author]</td>

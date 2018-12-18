@@ -72,7 +72,7 @@ if (isset($_POST["submitOffer"])){
                 <td>$row[author]</td>
                 <td>$row[price]</td>
                 <td>$row[offer_state]</td>
-                <td><a href='main.php?page=details&offer=$row[oID]'>Mehr</a></td>
+                <td><a href='?page=details&offer=$row[oID]'>Mehr</a></td>
             </tr>";
         }
         
@@ -90,7 +90,7 @@ if (isset($_POST["submitOffer"])){
         
         <p>              
             <!-- form to add offers -->
-            <form action="main.php?page=myoffers" method="post">
+            <form action="?page=myoffers" method="post">
                 Titel: <br><input type="text" name="title" required> <br><br>
                 Autor: <br><input type="text" name="author" required> <br><br>
                 Module: <br><div id="input_module"><input type="text" name="module0" id="module0"></div>

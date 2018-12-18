@@ -36,7 +36,7 @@ if(isset($_POST['register'])) {
         $result = $statement->execute(array('username' => $username, "lastname"=> $lastname, "firstname" => $firstname, 'password' => $passwordSave, "course" => $course, "description" => $description, "semester" => $semester));
         
         if($result) {        
-            $errorMessage = "Registrierung erfolgreich. Logge dich ein um fortzufahren: <a href='main.php'>Login</a>";
+            $errorMessage = "Registrierung erfolgreich. Logge dich ein um fortzufahren: <a href='index.php'>Login</a>";
             $showFormular = false;
         } else {
             $errorMessage ='Es ist ein Fehler aufgetreten, bitte versuche es erneut.<br>';
@@ -46,7 +46,7 @@ if(isset($_POST['register'])) {
  
 if($showFormular) {
 ?>
- <form action="main.php?page=register" method="post">
+ <form action="?page=register" method="post">
 	 Benutzername:<br>
 	  <input type="text" name="username" required><br>
 	 Vorname:<br>

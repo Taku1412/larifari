@@ -10,7 +10,7 @@ if(isset($_POST['login'])) {
 	if ($username !== false && password_verify($password, $user['password'])) { 
         $_SESSION['username'] = $user['nickname'];
 		$_SESSION['admin'] = $user['admin'];
-        header("Location: main.php");
+        header("Location: index.php");
 		exit; 
     } else {
         $errorMessage = "Benutzername oder Passwort ungültig<br>";
@@ -24,7 +24,7 @@ if(isset($errorMessage)) {
 }
 ?>
  
- <form action="main.php" method="post">
+ <form action="index.php" method="post">
 	  Benutzername:<br>
 	  <input type="text" name="username" required><br>
 	  Passwort:<br>
@@ -34,4 +34,4 @@ if(isset($errorMessage)) {
 </form> 
 
 Noch nicht Registriert? <br><br>
-<a href="main.php?page=register">Registrierung</a>
+<a href="?page=register">Registrierung</a>

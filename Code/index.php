@@ -44,7 +44,7 @@ if (isset ($_SESSION["username"])){
     // check if logout was pressed
     if (isset($_GET["logout"])){
         session_destroy();
-        header('Location: main.php');
+        header('Location: index.php');
     } else {
         // Hauptseite!
         // Header, aside und footer sind auf jeder Seite gleich:
@@ -65,10 +65,10 @@ if (isset ($_SESSION["username"])){
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <!-- li:class="active", a:id="active"  -->
-                            <li > <a href="main.php?page=start">Startseite</a> </li>
-                            <li> <a href="main.php?page=offers">Anzeigen</a> </li>
-                            <li> <a href="main.php?page=myoffers">Meine Angebote</a> </li>
-                            <li> <a  href="main.php?page=messages">Nachrichten</a> </li>
+                            <li > <a href="?page=start">Startseite</a> </li>
+                            <li> <a href="?page=offers">Anzeigen</a> </li>
+                            <li> <a href="?page=myoffers">Meine Angebote</a> </li>
+                            <li> <a  href="?page=messages">Nachrichten</a> </li>
 							<?php
 							/*//logged in user
 							$statement = $pdo->prepare("SELECT admin FROM member WHERE nickname = :username");
@@ -77,7 +77,7 @@ if (isset ($_SESSION["username"])){
         
 							if($_SESSION["admin"]==1){
 								?>
-								<li> <a  href="main.php?page=admin">Adminbereich</a> </li> <!--erscheint nur wenn admin auf 1 gesetzt-->
+								<li> <a  href="?page=admin">Adminbereich</a> </li> <!--erscheint nur wenn admin auf 1 gesetzt-->
 							<?php
 							}
 							?>
@@ -121,12 +121,12 @@ if (isset ($_SESSION["username"])){
         ?>
                 <aside class="col-xs-3">
                     <p>
-                        <a href="main.php?page=profile">Mein Profil</a>
+                        <a href="?page=profile">Mein Profil</a>
                         <br>
-                        <a href="main.php?logout=1">Logout</a>
+                        <a href="?logout=1">Logout</a>
                     </p>
                     <p>
-                        <a href="main.php?page=favorites">Merkliste</a>
+                        <a href="?page=favorites">Merkliste</a>
                     </p>
                 </aside>
             </div>

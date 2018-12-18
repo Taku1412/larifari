@@ -78,7 +78,7 @@
                 }
             ?>
             <br>
-            <a href="main.php?page=messages&contact=<?php echo $user['nickname']?>" class="button">Nachricht senden</a> 
+            <a href="?page=messages&contact=<?php echo $user['nickname']?>" class="button">Nachricht senden</a> 
 
             <?php
 
