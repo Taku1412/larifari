@@ -1,8 +1,7 @@
 <?php
-// main php file: contains refs to other files
+// index php file: contains refs to other files
 
 // Check if user is logged in
-
 
 session_start();
 
@@ -20,6 +19,8 @@ try {
 } catch (PDOException $e) {
     echo 'Verbindung fehlgeschlagen: ' . $e->getMessage();
 }
+
+require_once(__DIR__.'/src/securityFunctions.php');
 ?>
 
 

@@ -7,9 +7,9 @@
         if (isset($_GET["contact"])){
             if (isset($_POST["newMsg"])){
                 // contact is taken from the formula (from the "Nachrichten" page)
-                $contact = $_POST["user"];
+                $contact = xss_protect($_POST["user"]);
             } else {
-                $contact = $_GET["contact"];
+                $contact = xss_protect($_GET["contact"]);
             }
             
             // check if the contact username is valid
@@ -29,7 +29,7 @@
 
                     $result = $statement->execute(array("sender" => $_SESSION["username"], 
                                             "receiver" => $contact, 
-                                            "message" => $_POST["msg"],
+                                            "message" => xss_protect($_POST["msg"]),
                                            "timestmp" => time(),
                                            "opened" => 0));
 

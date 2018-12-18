@@ -10,14 +10,14 @@ if(isset($_POST['confirm_change'])) {
 	//input data
     $error = false;
 	$Message = false;
-    $username = $_POST['change_username'];
-	$firstname =  $_POST["change_firstname"];
-	$lastname = $_POST["change_lastname"];
-	$course = $_POST["change_course"];
-	$semester = $_POST["change_semester"];
-	$description = $_POST["change_description"];
-	$password = $_POST['change_password']; //new password
-    $confirm_password = $_POST['confirm_password']; //old password to verify change
+    $username = xss_protected($_POST['change_username']);
+	$firstname =  xss_protected($_POST["change_firstname"]);
+	$lastname = xss_protected($_POST["change_lastname"]);
+	$course = xss_protected($_POST["change_course"]);
+	$semester = xss_protected($_POST["change_semester"]);
+	$description = xss_protected($_POST["change_description"]);
+	$password = xss_protected($_POST['change_password']); //new password
+    $confirm_password = xss_protected($_POST['confirm_password']); //old password to verify change
 
 
   
