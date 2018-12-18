@@ -1,8 +1,10 @@
 <?php
 // Test if offer should be saved
 if (isset($_POST["submitOffer"])){
-    // Write data in database
+    // User wants to submit another offer
+    // Save new offer to the database
     
+    // Prepare the statement
     $statement = $pdo->prepare("INSERT INTO offer (title,author,offerer,offer_state,item_state,price,description,picture,isbn,edition) VALUES (:title,:author,:offerer,:offer_state,:item_state,:price,:description,:picture,:isbn,:edition)");
 
     $result = $statement->execute(array("title" => $_POST["title"], 
@@ -15,10 +17,11 @@ if (isset($_POST["submitOffer"])){
                                        "picture" => $_POST["picture"],
                                        "isbn" => $_POST["isbn"],
                                        "edition" => $_POST["edition"]));
-    // Save modules
+    // Save modules in seperate table
     $statement = $pdo->prepare("INSERT INTO offer_module (module,offer) VALUES (:module,:offer)");
     $offer_id = $pdo->lastInsertId();
     
+    // There might be multiple modules: find all modules that were added to the page
     $mod_id = 0;
     $mod_el = "module0";
     while (isset($_POST[$mod_el])){
@@ -29,9 +32,10 @@ if (isset($_POST["submitOffer"])){
         $mod_el = "module".$mod_id;
     }
     
-    //Save courses
+    // Save courses in seperate table
     $statement = $pdo->prepare("INSERT INTO offer_studypath (study_path,offer) VALUES (:module,:offer)");
     
+    // Same as modules: find all 
     $course_id = 0;
     $course_el = "course0";
     while (isset($_POST[$course_el])){
@@ -42,6 +46,7 @@ if (isset($_POST["submitOffer"])){
         $course_el = "course".$course_id;
     }
     
+    // Set attribute to show the user that the offer was successfully inserted
     $showSuccess = true;
 } else {
     $showSuccess = false;
