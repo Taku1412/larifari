@@ -45,20 +45,21 @@ if(isset($_POST['register'])) {
 }
  
 if($showFormular) {
+    # Gebe bereits eingegebene Daten aus, zum Beispiel wenn das Passwort falsch eingegeben wurde
 ?>
  <form action="?page=register" method="post">
 	 Benutzername:<br>
-	  <input type="text" name="username" required><br>
+	  <input type="text" name="username" <?php if(isset($_POST['username'])){ echo "value='$_POST[username]'";} ?> required><br>
 	 Vorname:<br>
-	  <input type="text" name="firstname" required><br>
+	  <input type="text" name="firstname" <?php if(isset($_POST['firstname'])){ echo "value='$_POST[firstname]'";} ?> required><br>
 	 Nachname :<br>
-	  <input type="text" name="lastname" required><br>
+	  <input type="text" name="lastname" <?php if(isset($_POST['lastname'])){ echo "value='$_POST[lastname]'";} ?> required><br>
 	 Studiengang (optional): <br>
-	  <input type="text" name="course" ><br>
+	  <input type="text" name="course" <?php if(isset($_POST['course'])){ echo "value='$_POST[course]'";} ?> ><br>
 	 Startsemester (optional): <br>
-	  <input type="text" name="semester" ><br>
+	  <input type="text" name="semester" <?php if(isset($_POST['semester'])){ echo "value='$_POST[semester]'";} ?> ><br>
 	 Beschreibung (optional): <br>
-	 <textarea name="description" rows="4" cols="50" placeholder="Schreibe etwas über dich..."></textarea> <br>
+	 <textarea name="description" rows="4" cols="50" placeholder="Schreibe etwas über dich..." ><?php if(isset($_POST['description'])){ echo "$_POST[description]";} ?></textarea> <br>
 	 Passwort:<br>
 	  <input type="password" name="password" required><br>
 	 Passwort bestätigen:<br>
