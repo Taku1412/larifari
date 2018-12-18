@@ -7,16 +7,16 @@ if (isset($_POST["submitOffer"])){
     // Prepare the statement
     $statement = $pdo->prepare("INSERT INTO offer (title,author,offerer,offer_state,item_state,price,description,picture,isbn,edition) VALUES (:title,:author,:offerer,:offer_state,:item_state,:price,:description,:picture,:isbn,:edition)");
 
-    $result = $statement->execute(array("title" => $_POST["title"], 
-                                        "author" => $_POST["author"],
-                                        "offerer" => $_SESSION["username"],
-                                       "offer_state" => $_POST["offer_state"],
-                                       "item_state" => $_POST["item_state"],
-                                        "price" => $_POST["price"],
-                                       "description" => $_POST["description"],
-                                       "picture" => $_POST["picture"],
-                                       "isbn" => $_POST["isbn"],
-                                       "edition" => $_POST["edition"]));
+    $result = $statement->execute(array("title" => xss_protected($_POST["title"]), 
+                                        "author" => xss_protected($_POST["author"]),
+                                        "offerer" => xss_protected($_SESSION["username"]),
+                                       "offer_state" => xss_protected($_POST["offer_state"]),
+                                       "item_state" => xss_protected($_POST["item_state"]),
+                                        "price" => xss_protected($_POST["price"]),
+                                       "description" => xss_protected($_POST["description"]),
+                                       "picture" => xss_protected($_POST["picture"]),
+                                       "isbn" => xss_protected($_POST["isbn"]),
+                                       "edition" => xss_protected($_POST["edition"])));
     // Save modules in seperate table
     $statement = $pdo->prepare("INSERT INTO offer_module (module,offer) VALUES (:module,:offer)");
     $offer_id = $pdo->lastInsertId();

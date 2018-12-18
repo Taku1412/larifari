@@ -3,46 +3,46 @@
 if(isset($_POST['delete_user'])) {
 	//delete modules related to the offers 
 	$statement = $pdo->prepare("DELETE FROM offer_module WHERE offer IN (SELECT oID FROM offer WHERE offer.offerer = :username)");
-    $result = $statement->execute(array('username' => $_POST["name"]));
+    $result = $statement->execute(array('username' => xss_protected($_POST["name"])));
 	
 	//delete studypath related to the offers 
 	$statement = $pdo->prepare("DELETE FROM offer_studypath WHERE offer IN (SELECT oID FROM offer WHERE offer.offerer = :username)");
-    $result = $statement->execute(array('username' => $_POST["name"]));
+    $result = $statement->execute(array('username' => xss_protected($_POST["name"])));
 	
 	//delete Watchlist offer entry
 	$statement = $pdo->prepare("DELETE FROM watch_list WHERE offer IN (SELECT oID FROM offer WHERE offer.offerer = :username)");
-    $result = $statement->execute(array('username' => $_POST["name"]));
+    $result = $statement->execute(array('username' => xss_protected($_POST["name"])));
 	
 	//delete Watchlist from user
 	$statement = $pdo->prepare("DELETE FROM watch_list WHERE nickname = :username");
-    $result = $statement->execute(array('username' => $_POST["name"]));
+    $result = $statement->execute(array('username' => xss_protected($_POST["name"])));
 	
 	//delete offers 
 	$statement = $pdo->prepare("DELETE FROM offer WHERE offerer = :username");
-    $result = $statement->execute(array('username' => $_POST['name']));
+    $result = $statement->execute(array('username' => xss_protected($_POST['name'])));
 	
 	//delete user
 	$statement = $pdo->prepare("DELETE FROM member WHERE nickname = :username");
-    $result = $statement->execute(array('username' => $_POST['name']));
+    $result = $statement->execute(array('username' => xss_protected($_POST['name'])));
 }
 
 //delete offer
 if(isset($_POST['delete_offer'])) {
 	//delete modules related to the offers 
 	$statement = $pdo->prepare("DELETE FROM offer_module WHERE offer = :id");
-    $result = $statement->execute(array('id' => $_POST["oID"]));
+    $result = $statement->execute(array('id' => xss_protected($_POST["oID"])));
 	
 	//delete studypath related to the offers 
 	$statement = $pdo->prepare("DELETE FROM offer_studypath WHERE offer = :id");
-    $result = $statement->execute(array('id' => $_POST["oID"]));
+    $result = $statement->execute(array('id' => xss_protected($_POST["oID"])));
 	
 	//delete Watchlist offer entry
 	$statement = $pdo->prepare("DELETE FROM watch_list WHERE offer = :id");
-    $result = $statement->execute(array('id' => $_POST["oID"]));
+    $result = $statement->execute(array('id' => xss_protected($_POST["oID"])));
 	
 	//delete offers 
 	$statement = $pdo->prepare("DELETE FROM offer WHERE oID = :id");
-    $result = $statement->execute(array('id' => $_POST['oID']));
+    $result = $statement->execute(array('id' => xss_protected($_POST['oID'])));
 }
 
 //lock offer
@@ -50,7 +50,7 @@ if(isset($_POST['lock_offer'])) {
 	// Insert new data
         $statement = $pdo->prepare("UPDATE offer SET offer_state=:offer_state WHERE oID=:id");
 
-        $result = $statement->execute(array('id' => $_POST['oID'],
+        $result = $statement->execute(array('id' => xss_protected($_POST['oID']),
 											"offer_state" => 2));
 }
 											
@@ -59,7 +59,7 @@ if(isset($_POST['unlock_offer'])) {
 	// Insert new data
         $statement = $pdo->prepare("UPDATE offer SET offer_state=:offer_state WHERE oID=:id");
 
-        $result = $statement->execute(array('id' => $_POST['oID'],
+        $result = $statement->execute(array('id' => xss_protected($_POST['oID']),
 											"offer_state" => 1));
 }
 

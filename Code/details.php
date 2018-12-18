@@ -5,14 +5,14 @@ if(isset($_POST['confirm_change'])) {
     
     // Check if the correct password was entered
     $statement = $pdo->prepare("SELECT password FROM member WHERE nickname = :username");
-    $result = $statement->execute(array('username' => $_SESSION["username"]));
+    $result = $statement->execute(array('username' => xss_protected($_SESSION["username"])));
     $user = $statement->fetch();
     
-    if(!password_verify($_POST['confirm_password'],$user['password'])) {
+    if(!password_verify(xss_protected($_POST['confirm_password']),xss_protected($user['password']))) {
         $message = "Keine Änderungen durchgeführt. Das Passwort war falsch, bitte versuche es erneut.<br>";
     } else {
         // Correct password: Update data
-        $offer_id = $_GET["offer"];
+        $offer_id = xss_protected($_GET["offer"]);
         
         // Delete modules and courses
         $statement = $pdo->prepare("DELETE FROM offer_module WHERE offer=:id");
@@ -23,16 +23,16 @@ if(isset($_POST['confirm_change'])) {
         // Insert new data
         $statement = $pdo->prepare("UPDATE offer SET title=:title, author=:author, offerer=:offerer, offer_state=:offer_state, item_state=:item_state, price=:price, description=:description, picture=:picture, isbn=:isbn, edition=:edition WHERE oID=:id");
 
-        $result = $statement->execute(array("title" => $_POST["change_title"], 
-                                            "author" => $_POST["change_author"],
-                                            "offerer" => $_SESSION["username"],
-                                           "offer_state" => $_POST["change_offer_state"],
-                                           "item_state" => $_POST["change_item_state"],
-                                            "price" => $_POST["change_price"],
-                                           "description" => $_POST["change_description"],
-                                           "picture" => $_POST["change_picture"],
-                                           "isbn" => $_POST["change_isbn"],
-                                           "edition" => $_POST["change_edition"],
+        $result = $statement->execute(array("title" => xss_protected($_POST["change_title"]), 
+                                            "author" => xss_protected($_POST["change_author"]),
+                                            "offerer" => xss_protected($_SESSION["username"]),
+                                           "offer_state" => xss_protected($_POST["change_offer_state"]),
+                                           "item_state" => xss_protected($_POST["change_item_state"]),
+                                            "price" => xss_protected($_POST["change_price"]),
+                                           "description" => xss_protected($_POST["change_description"]),
+                                           "picture" => xss_protected($_POST["change_picture"]),
+                                           "isbn" => xss_protected($_POST["change_isbn"]),
+                                           "edition" => xss_protected($_POST["change_edition"]),
                                            "id" => $offer_id));        
         
         // Save modules
@@ -42,7 +42,7 @@ if(isset($_POST['confirm_change'])) {
         $mod_el = "change_module0";
         while (isset($_POST[$mod_el])){
             if ($_POST[$mod_el] != ""){
-                $result = $statement->execute(array("module" => $_POST[$mod_el],"offer" => $offer_id));
+                $result = $statement->execute(array("module" => xss_protected($_POST[$mod_el]),"offer" => $offer_id));
             }
             $mod_id += 1;
             $mod_el = "change_module".$mod_id;
@@ -55,7 +55,7 @@ if(isset($_POST['confirm_change'])) {
         $course_el = "change_course0";
         while (isset($_POST[$course_el])){
             if ($_POST[$course_el] != ""){
-                $result = $statement->execute(array("module" => $_POST[$course_el],"offer" => $offer_id));
+                $result = $statement->execute(array("module" => xss_protected($_POST[$course_el]),"offer" => $offer_id));
             }
             $course_id += 1;
             $course_el = "change_course".$course_id;
@@ -79,21 +79,22 @@ if(isset($_POST['confirm_change'])) {
             $id = $_GET["offer"];
             # Get relevant data from database
             $statement = $pdo->prepare("SELECT oID,title,author,offerer,item_state,price,description,picture,isbn,edition, offer_state.state AS offer_state FROM offer,offer_state WHERE oID = :oID AND offer.offer_state = offer_state.sID");
-            $result = $statement->execute(array('oID' => $_GET["offer"]));
+            $result = $statement->execute(array('oID' => xss_protected($_GET["offer"])));
             $offer = $statement->fetch();
             
             $statement = $pdo->prepare("SELECT * FROM offer_module WHERE offer = :oID");
-            $result = $statement->execute(array('oID' => $_GET["offer"]));
+            $result = $statement->execute(array('oID' => xss_protected($_GET["offer"])));
             $offer_module = $statement->fetch();
             
             $statement = $pdo->prepare("SELECT * FROM offer_studypath WHERE offer = :oID");
-            $result = $statement->execute(array('oID' => $_GET["offer"]));
+            $result = $statement->execute(array('oID' => xss_protected($_GET["offer"])));
             $offer_studypath = $statement->fetch();
             
-            if ($offer == null){
+            if ($offer == null){#
+				$offerId = xss_protected($_GET["offer"]);
                 ?>
                 <h2>Anzeige</h2>
-                <p>Es gibt keine Anzeige mit der ID <?php echo $_GET["offer"];?>.</p>
+                <p>Es gibt keine Anzeige mit der ID <?php echo $offerId;?>.</p>
                 <?php 
             } else {
                 // Different views depending on the offerer
