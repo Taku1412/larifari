@@ -89,8 +89,15 @@ if(isset($_POST['delete_offer'])) {
 					<td>
 						<form action="main.php?page=admin" method="post" name='delete_form' >
 							<input type="hidden" name="name" value= "<?php echo $row["nickname"];?>">
-							<input type="submit" value="X" name = "delete_user" ><br><br>
-						</form></td>
+							<input type="submit" value="Löschen" name = "delete_user" ><br><br>
+						</form>
+					</td>
+					<td>
+						<form action="main.php?page=admin" method="post" name='lock_form' >
+							<input type="hidden" name="name" value= "<?php echo $row["nickname"];?>">
+							<input type="submit" value="Sperren" name = "lock_user" ><br><br>
+						</form>
+					</td>
 				</tr>
 			<?php
 			}
