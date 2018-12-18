@@ -44,6 +44,25 @@ if(isset($_POST['delete_offer'])) {
 	$statement = $pdo->prepare("DELETE FROM offer WHERE oID = :id");
     $result = $statement->execute(array('id' => $_POST['oID']));
 }
+
+//lock offer
+if(isset($_POST['lock_offer'])) {
+	// Insert new data
+        $statement = $pdo->prepare("UPDATE offer SET offer_state=:offer_state WHERE oID=:id");
+
+        $result = $statement->execute(array('id' => $_POST['oID'],
+											"offer_state" => 2));
+}
+											
+//unlock offer
+if(isset($_POST['unlock_offer'])) {
+	// Insert new data
+        $statement = $pdo->prepare("UPDATE offer SET offer_state=:offer_state WHERE oID=:id");
+
+        $result = $statement->execute(array('id' => $_POST['oID'],
+											"offer_state" => 1));
+}
+
 ?>
 
 <article class="col-xs-9">
@@ -51,7 +70,7 @@ if(isset($_POST['delete_offer'])) {
 	if($_SESSION["admin"]==1){
 		
 	?>
-	<section class="col-xs-6">
+	<section class="col-xs-5">
 		
 		
         <h2>Mitgliederliste</h2>
@@ -92,12 +111,7 @@ if(isset($_POST['delete_offer'])) {
 							<input type="submit" value="Löschen" name = "delete_user" ><br><br>
 						</form>
 					</td>
-					<td>
-						<form action="?page=admin" method="post" name='lock_form' >
-							<input type="hidden" name="name" value= "<?php echo $row["nickname"];?>">
-							<input type="submit" value="Sperren" name = "lock_user" ><br><br>
-						</form>
-					</td>
+					
 				</tr>
 			<?php
 			}
@@ -107,7 +121,7 @@ if(isset($_POST['delete_offer'])) {
 
         </p>
     </section>
-	<section class="col-xs-6">
+	<section class="col-xs-7">
         <h2>Anzeigeliste</h2>
         <p>
             Lösche Anzeigen
@@ -118,28 +132,44 @@ if(isset($_POST['delete_offer'])) {
 			// Show all offers in a table
 			// Default: order by oID
 
-			$sql = "SELECT * FROM `offer`";
+			$sql = "SELECT * FROM `offer` 
+					JOIN offer_state ON sID = offer_state";
 			?>
 			<table>
 				<tr>
 					<th>Titel</th>
-					<th>Autor</th>
+					<th>Status</th>
 					<th>Anbieter</th>
 					<th>Details</th>
 					<th>Löschen</th>
+					<th>Sperren</th>
+					<th>Entsperren</th>
 				</tr>
 
 			<?php
 
 			foreach ($pdo->query($sql) as $row) {?><tr>
 					<td><?php echo $row['title']?></td>
-					<td><?php echo $row['author']?></td>
+					<td><?php echo $row['state']?></td>
 					<td><?php echo $row['offerer']?></td>
 					<td>Link zu Details</td>
 					<td><form action="?page=admin" method="post" name='delete_form' >
 							<input type="hidden" name="oID" value= "<?php echo $row["oID"];?>">
-							<input type="submit" value="X" name = "delete_offer" ><br><br>
-						</form></td></td>
+							<input type="submit" value="Löschen" name = "delete_offer" ><br><br>
+						</form></td>
+					</td>
+					<td>
+						<form action="?page=admin" method="post" name='lock_form' >
+							<input type="hidden" name="oID" value= "<?php echo $row["oID"];?>">
+							<input type="submit" value="Sperren" name = "lock_offer" ><br><br>
+						</form>
+					</td>
+					<td>
+						<form action="?page=admin" method="post" name='unlock_form' >
+							<input type="hidden" name="oID" value= "<?php echo $row["oID"];?>">
+							<input type="submit" value="Entsperren" name = "unlock_offer" ><br><br>
+						</form>
+					</td>
 				</tr>
 			<?php
 
