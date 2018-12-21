@@ -23,15 +23,42 @@ if(isset($errorMessage)) {
     echo $errorMessage;
 }
 ?>
- 
- <form action="index.php" method="post">
-	  Benutzername:<br>
-	  <input type="text" name="username" required><br>
-	  Passwort:<br>
-	  <input type="password" name="password" required><br><br>
-	 
-	  <input type="submit" value="Anmelden" name = "login"><br><br>
-</form> 
+ <head>
+<link rel="stylesheet" type="text/css" href="style/login.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-Noch nicht Registriert? <br><br>
-<a href="?page=register">Registrierung</a>
+  </head>
+<body id="LoginForm">
+<div class="container">
+<div class="login-form">
+<div class="main-div">
+    <div class="panel">
+   <h2>Admin Login</h2>
+   <p>Please enter your email and password</p>
+   </div>
+<form action="index.php" id="Login" method="post">
+
+        <div class="form-group">
+            <input type="text" name="username" required class="form-control" id="inputEmail" placeholder="Benutzername">
+        </div>
+
+        <div class="form-group">
+            <input type="password" name="password" required class="form-control" id="inputPassword" placeholder="Password">
+        </div>
+    
+        <button type="submit" name="login" class="btn btn-primary">Anmelden</button>
+    <br><br>
+    Noch nicht Registriert? <br>
+<a href="index.php?page=register">Registrierung</a>
+    </form>
+</div>
+</div>
+<p class="botto-text"> Designed by Sunil Rajput</p>
+</div></div></div>
+
+
+</body>
+
+
