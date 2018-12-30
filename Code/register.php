@@ -47,7 +47,23 @@ if(isset($_POST['register'])) {
 if($showFormular) {
     # Gebe bereits eingegebene Daten aus, zum Beispiel wenn das Passwort falsch eingegeben wurde
 ?>
- <form action="?page=register" method="post">
+ <head>
+<link rel="stylesheet" type="text/css" href="style/register.css">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  </head>
+
+<body id="RegisterForm">
+<div class="register-form">  
+<div class="main-div">
+    <div class="panel">
+        <h2>Registrierung</h2>
+        <p>Please fill in to register</p>
+    </div>
+
+ <form action="register.php" id="Register" method="post">
 	 <?php 
 		if(isset($_POST['username'])){
 	 		$username=xss_protect($_POST["username"]);
@@ -69,25 +85,54 @@ if($showFormular) {
 		}
 	 
 	 ?>
-	 
-	 Benutzername:<br>
-	  <input type="text" name="username" <?php if(isset($_POST['username'])){ echo "value='$username'";} ?> required><br>
-	 Vorname:<br>
-	  <input type="text" name="firstname" <?php if(isset($_POST['firstname'])){ echo "value='$firstname'";} ?> required><br>
-	 Nachname :<br>
-	  <input type="text" name="lastname" <?php if(isset($_POST['lastname'])){ echo "value='$lastname'";} ?> required><br>
-	 Studiengang (optional): <br>
-	  <input type="text" name="course" <?php if(isset($_POST['course'])){ echo "value='$course'";} ?> ><br>
-	 Startsemester (optional): <br>
-	  <input type="text" name="semester" <?php if(isset($_POST['semester'])){ echo "value='$semester'";} ?> ><br>
-	 Beschreibung (optional): <br>
-	 <textarea name="description" rows="4" cols="50" placeholder="Schreibe etwas über dich..." ><?php if(isset($_POST['description'])){ echo "'$description'";} ?></textarea> <br>
-	 Passwort:<br>
-	  <input type="password" name="password" required><br>
-	 Passwort bestätigen:<br>
-	  <input type="password" name="passwordVerify" required><br><br>
-	 
-	  <input type="submit" value="Registrieren" name = "register"> 
+     <div class="form-group">
+         <label for="uname">Benutzername:</label>
+	  <input type="text" name="username" required class="form-control" id="uname" placeholder="Benutzername eingeben" <?php if(isset($_POST['username'])){ echo "value='$username'";} ?> ><br>
+     </div>
+     
+     <div class="form-group">
+         <label for="fname">Vorname:</label>
+         <input type="text" name="firstname" required class="form-control" id="fname" placeholder="Vorname eingeben" <?php if(isset($_POST['firstname'])){ echo "value='$firstname'";} ?>><br>
+     </div>
+     
+     <div class="form-group">
+         <label for="lname">Nachname:</label>
+	 <input type="text" name="lastname" required class="form-control" id="lname" placeholder="Nachname eingeben" <?php if(isset($_POST['lastname'])){ echo "value='$lastname'";} ?> ><br>
+     </div>
+     <div class="form-group">
+         
+         <label for="ucourse">Studiengang (optional):</label>
+	  <input type="text" name="course" class="form-control" id="ucourse" placeholder="Studiengang eingeben"<?php if(isset($_POST['course'])){ echo "value='$course'";} ?> ><br>
+     </div>
+     
+     <div class="form-group">
+         <label for="ssem">Startsemester (optional):</label>
+      <input type="text" name="semester" class="form-control" id="ssem" placeholder="Startsemester eingeben" <?php if(isset($_POST['semester'])){ echo "value='$semester'";} ?> ><br>
+     </div>
+     
+     <div class="form-group">
+         <label for="udescription">Beschreibung (optional):</label>
+	 <textarea name="description" rows="4" cols="50" class="form-control" id=udescription placeholder="Schreibe etwas über dich..." ><?php if(isset($_POST['description'])){ echo "'$description'";} ?></textarea> <br>
+     </div>
+     
+     <div class="form-group">
+         <label for="pword">Passwort:</label>
+	  <input type="password" name="password" id="pword" required class="form-control" placeholder="Passwort eingeben"><br>
+     </div>
+     
+     <div class="form-group">
+         <label for="pword1">Passwort bestätigen:</label>
+	  <input type="password" name="passwordVerify" id="pword1" required class="form-control" placeholder="Passwort bestätigen">
+     </div>
+         <button type="submit" name="register" class="btn btn-primary" value="Registrieren">Registrieren</button> 
+         <br><br>
+     
+</form>
+</div>
+</div>
+    
+    
+</body>
 <?php
 } //fi($showFormular)
 if(isset($errorMessage)) {
