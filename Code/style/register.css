@@ -36,8 +36,8 @@ body#RegisterForm{
     text-align:left;
 }
 .register-form .btn.btn-primary{
-  background: #f0ad4e none repeat scroll 0 0;
-  border-color: #f0ad4e;
+  background: #008000 none repeat scroll 0 0;
+  border-color: #008000;
   color: #ffffff;
   font-size: 14px;
   width: 100%;
@@ -49,5 +49,5 @@ p{
     font-size: 15px
 }
 .register-form .btn.btn-primary {
-  background: #f0ad4e none repeat scroll 0 0;
+  background: #008000 none repeat scroll 0 0;
 }

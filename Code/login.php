@@ -30,8 +30,8 @@ if(isset($errorMessage)) {
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   </head>
+
 <body id="LoginForm">
-<div class="container">
 <div class="login-form">
 <div class="main-div">
     <div class="panel">
@@ -50,13 +50,11 @@ if(isset($errorMessage)) {
     
         <button type="submit" name="login" class="btn btn-primary">Anmelden</button>
     <br><br>
-    Noch nicht Registriert? <br>
+    <p>Noch nicht Registriert?</p>
 <a href="index.php?page=register">Registrierung</a>
     </form>
 </div>
 </div>
-<p class="botto-text"> Designed by Sunil Rajput</p>
-</div></div></div>
 
 
 </body>

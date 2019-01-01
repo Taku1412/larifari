@@ -34,8 +34,8 @@ body#LoginForm{
 .login-form{ text-align:center;}
 
 .login-form  .btn.btn-primary {
-  background: #f0ad4e none repeat scroll 0 0;
-  border-color: #f0ad4e;
+  background: #008000 none repeat scroll 0 0;
+  border-color: #008000;
   color: #ffffff;
   font-size: 14px;
   width: 100%;
@@ -50,5 +50,5 @@ p{
 }
 
 .login-form .btn.btn-primary {
-  background: #ff9900 none repeat scroll 0 0;
+  background: #008000 none repeat scroll 0 0;
 }
